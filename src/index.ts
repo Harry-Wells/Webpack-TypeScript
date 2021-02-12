@@ -29,8 +29,8 @@ let sketch = function (p: p5) {
     p.draw = function () {
         Engine.update(engine, 10);
 
-        p.background(0);
-        p.fill(255);
+        p.background('orange');
+        p.fill('purple');
 
         // Draw all bodies
         // p5 and matter js meeting
