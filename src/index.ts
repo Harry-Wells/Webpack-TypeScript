@@ -18,8 +18,8 @@ let sketch = function (p: p5) {
         p.createCanvas(1500, 700);
 
         engine = Engine.create();
-        ballA = Bodies.circle(400, 200, 25,);
-        boxA = Bodies.rectangle(600, 200, 75, 75);
+        ballA = Bodies.circle(400, 200, 25, { restitution: 1.25 });
+        boxA = Bodies.rectangle(750, 350, 75, 75, { isStatic: true });
         ground = Bodies.rectangle(400, 700, 10000, 60, { isStatic: true });
         borderA = Bodies.rectangle(-5, 350, 10, 10000, { isStatic: true });
         borderB = Bodies.rectangle(1505, 350, 10, 10000, { isStatic: true });
@@ -54,16 +54,16 @@ let sketch = function (p: p5) {
             Matter.Body.applyForce(ballA, ballA.position, { x: 0, y: +0.01 });
         }
         if (p.keyIsDown(87)) {
-            Matter.Body.applyForce(boxA, boxA.position, { x: 0, y: -0.01 });
+            Matter.Body.applyForce(ballA, ballA.position, { x: 0, y: -0.01 });
         }
         if (p.keyIsDown(65)) {
-            Matter.Body.applyForce(boxA, boxA.position, { x: -0.01, y: 0 });
+            Matter.Body.applyForce(ballA, ballA.position, { x: -0.01, y: 0 });
         }
         if (p.keyIsDown(68)) {
-            Matter.Body.applyForce(boxA, boxA.position, { x: +0.01, y: 0 });
+            Matter.Body.applyForce(ballA, ballA.position, { x: +0.01, y: 0 });
         }
         if (p.keyIsDown(83)) {
-            Matter.Body.applyForce(boxA, boxA.position, { x: 0, y: +0.01 });
+            Matter.Body.applyForce(ballA, ballA.position, { x: 0, y: +0.01 });
         }
     };
 };
