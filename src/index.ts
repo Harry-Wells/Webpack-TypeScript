@@ -11,6 +11,8 @@ let sketch = function (p: p5) {
     var ballA: Matter.Body;
     var boxA: Matter.Body;
     var ground: Matter.Body;
+    var borderA: Matter.Body;
+    var borderB: Matter.Body;
 
     p.setup = function () {
         p.createCanvas(1500, 700);
@@ -19,8 +21,10 @@ let sketch = function (p: p5) {
         ballA = Bodies.circle(400, 200, 25,);
         boxA = Bodies.rectangle(600, 200, 75, 75);
         ground = Bodies.rectangle(400, 700, 10000, 60, { isStatic: true });
+        borderA = Bodies.rectangle(-5, 350, 10, 10000, { isStatic: true });
+        borderB = Bodies.rectangle(1505, 350, 10, 10000, { isStatic: true });
 
-        World.add(engine.world, [ballA, boxA, ground]);
+        World.add(engine.world, [ballA, boxA, ground, borderA, borderB]);
     };
 
     p.draw = function () {
@@ -36,7 +40,6 @@ let sketch = function (p: p5) {
             })
             p.endShape(p.CLOSE);
         });
-
 
         if (p.keyIsDown(p.UP_ARROW)) {
             Matter.Body.applyForce(ballA, ballA.position, { x: 0, y: -0.01 });
