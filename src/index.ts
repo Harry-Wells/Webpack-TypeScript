@@ -25,6 +25,8 @@ let sketch = function (p: p5) {
         borderB = Bodies.rectangle(1505, 350, 10, 10000, { isStatic: true });
 
         World.add(engine.world, [ballA, boxA, ground, borderA, borderB]);
+
+        engine.world.gravity.y = 3;
     };
 
     p.draw = function () {
