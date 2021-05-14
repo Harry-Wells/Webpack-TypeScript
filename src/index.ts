@@ -26,7 +26,7 @@ let sketch = function (p: p5) {
 
         World.add(engine.world, [ballA, boxA, ground, borderA, borderB]);
 
-        engine.world.gravity.y = 2;
+        engine.world.gravity.y = 3;
     };
 
     p.draw = function () {
