@@ -37,7 +37,27 @@ let sketch = function (p: p5) {
 
         engine.world.bodies.forEach(body => {
             p.beginShape()
-            body.vertices.forEach(vertex => {
+            ballA.vertices.forEach(vertex => {
+                p.vertex(vertex.x, vertex.y);
+            })
+            p.endShape(p.CLOSE);
+        });
+
+        p.fill('#715428');
+
+        engine.world.bodies.forEach(body => {
+            p.beginShape()
+            boxA.vertices.forEach(vertex => {
+                p.vertex(vertex.x, vertex.y);
+            })
+            p.endShape(p.CLOSE);
+        });
+
+        p.fill('grey');
+
+        engine.world.bodies.forEach(body => {
+            p.beginShape()
+            ground.vertices.forEach(vertex => {
                 p.vertex(vertex.x, vertex.y);
             })
             p.endShape(p.CLOSE);
