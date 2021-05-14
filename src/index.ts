@@ -18,7 +18,7 @@ let sketch = function (p: p5) {
         p.createCanvas(1500, 700);
 
         engine = Engine.create();
-        ballA = Bodies.circle(400, 200, 25, { restitution: 1.25 });
+        ballA = Bodies.circle(400, 200, 25, { restitution: 1 });
         boxA = Bodies.rectangle(750, 350, 75, 75, { isStatic: true });
         ground = Bodies.rectangle(400, 700, 10000, 60, { isStatic: true });
         borderA = Bodies.rectangle(-5, 350, 10, 10000, { isStatic: true });
@@ -26,7 +26,7 @@ let sketch = function (p: p5) {
 
         World.add(engine.world, [ballA, boxA, ground, borderA, borderB]);
 
-        engine.world.gravity.y = 3;
+        engine.world.gravity.y = 2;
     };
 
     p.draw = function () {
