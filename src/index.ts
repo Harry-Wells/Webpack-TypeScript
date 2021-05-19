@@ -17,8 +17,8 @@ let sketch = function (p: p5) {
     var hoopBackboard: Matter.Body;
     var hoopPaint: Matter.Body;
     var hoopRim: Matter.Body;
-    var rimCollisionA: Matter.Body;
-    var rimCollisionB: Matter.Body;
+    var rimCollisionR: Matter.Body;
+    var rimCollisionL: Matter.Body;
 
     p.setup = function () {
         p.createCanvas(1500, 700);
@@ -29,16 +29,16 @@ let sketch = function (p: p5) {
         ground = Bodies.rectangle(400, 700, 10000, 60, { isStatic: true });
         borderA = Bodies.rectangle(-5, 350, 10, 10000, { isStatic: true });
         borderB = Bodies.rectangle(1505, 350, 10, 10000, { isStatic: true });
-        hoopPole = Bodies.rectangle(1000, 475, 25, 390, { isStatic: true });
+        hoopPole = Bodies.rectangle(1400, 475, 25, 390, { isStatic: true });
         hoopPole.collisionFilter = { 'group': -1 };
-        hoopBackboard = Bodies.rectangle(1000, 200, 30, 200, { isStatic: true });
-        hoopPaint = Bodies.rectangle(990, 250, 10, 100, { isStatic: true });
-        rimCollisionA = Bodies.rectangle(980, 275, 10, 10, { isStatic: true });
-        rimCollisionB = Bodies.rectangle(885, 275, 10, 10, { isStatic: true });
-        hoopRim = Bodies.rectangle(930, 275, 100, 10, { isStatic: true });
+        hoopBackboard = Bodies.rectangle(1400, 200, 30, 200, { isStatic: true });
+        hoopPaint = Bodies.rectangle(1390, 250, 10, 100, { isStatic: true });
+        rimCollisionR = Bodies.rectangle(1380, 275, 10, 10, { isStatic: true });
+        rimCollisionL = Bodies.rectangle(1285, 275, 10, 10, { isStatic: true });
+        hoopRim = Bodies.rectangle(1330, 275, 100, 10, { isStatic: true });
         hoopRim.collisionFilter = { 'group': -1 };
 
-        World.add(engine.world, [ballA, boxA, ground, borderA, borderB, hoopPole, hoopBackboard, hoopPaint, rimCollisionA, rimCollisionB, hoopRim]);
+        World.add(engine.world, [ballA, boxA, ground, borderA, borderB, hoopPole, hoopBackboard, hoopPaint, rimCollisionR, rimCollisionL, hoopRim]);
 
         engine.world.gravity.y = 3;
     };
@@ -131,21 +131,21 @@ let sketch = function (p: p5) {
             p.endShape(p.CLOSE);
         });
 
-        // Draw RimCollisionA
+        // Draw RimCollisionR
         p.fill('#f74323');
 
         engine.world.bodies.forEach(body => {
             p.beginShape()
-            rimCollisionA.vertices.forEach(vertex => {
+            rimCollisionR.vertices.forEach(vertex => {
                 p.vertex(vertex.x, vertex.y);
             })
             p.endShape(p.CLOSE);
         });
 
-        // Draw RimCollisionB
+        // Draw RimCollisionL
         engine.world.bodies.forEach(body => {
             p.beginShape()
-            rimCollisionB.vertices.forEach(vertex => {
+            rimCollisionL.vertices.forEach(vertex => {
                 p.vertex(vertex.x, vertex.y);
             })
             p.endShape(p.CLOSE);
