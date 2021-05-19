@@ -13,6 +13,12 @@ let sketch = function (p: p5) {
     var ground: Matter.Body;
     var borderA: Matter.Body;
     var borderB: Matter.Body;
+    var hoopPole: Matter.Body;
+    var hoopBackboard: Matter.Body;
+    var hoopPaint: Matter.Body;
+    var hoopRim: Matter.Body;
+    var rimCollisionA: Matter.Body;
+    var rimCollisionB: Matter.Body;
 
     p.setup = function () {
         p.createCanvas(1500, 700);
@@ -23,8 +29,16 @@ let sketch = function (p: p5) {
         ground = Bodies.rectangle(400, 700, 10000, 60, { isStatic: true });
         borderA = Bodies.rectangle(-5, 350, 10, 10000, { isStatic: true });
         borderB = Bodies.rectangle(1505, 350, 10, 10000, { isStatic: true });
+        hoopPole = Bodies.rectangle(1000, 475, 25, 390, { isStatic: true });
+        hoopPole.collisionFilter = { 'group': -1 };
+        hoopBackboard = Bodies.rectangle(1000, 200, 30, 200, { isStatic: true });
+        hoopPaint = Bodies.rectangle(990, 250, 10, 100, { isStatic: true });
+        rimCollisionA = Bodies.rectangle(980, 275, 10, 10, { isStatic: true });
+        rimCollisionB = Bodies.rectangle(885, 275, 10, 10, { isStatic: true });
+        hoopRim = Bodies.rectangle(930, 275, 100, 10, { isStatic: true });
+        hoopRim.collisionFilter = { 'group': -1 };
 
-        World.add(engine.world, [ballA, boxA, ground, borderA, borderB]);
+        World.add(engine.world, [ballA, boxA, ground, borderA, borderB, hoopPole, hoopBackboard, hoopPaint, rimCollisionA, rimCollisionB, hoopRim]);
 
         engine.world.gravity.y = 3;
     };
@@ -33,6 +47,7 @@ let sketch = function (p: p5) {
         Engine.update(engine, 10);
 
         p.background('blue');
+        // Draw BallA
         p.fill('orange');
 
         engine.world.bodies.forEach(body => {
@@ -43,6 +58,7 @@ let sketch = function (p: p5) {
             p.endShape(p.CLOSE);
         });
 
+        // Draw BoxA
         p.fill('#715428');
 
         engine.world.bodies.forEach(body => {
@@ -53,11 +69,92 @@ let sketch = function (p: p5) {
             p.endShape(p.CLOSE);
         });
 
+        // Draw Ground
         p.fill('grey');
 
         engine.world.bodies.forEach(body => {
             p.beginShape()
             ground.vertices.forEach(vertex => {
+                p.vertex(vertex.x, vertex.y);
+            })
+            p.endShape(p.CLOSE);
+        });
+
+        // Draw BorderA
+        engine.world.bodies.forEach(body => {
+            p.beginShape()
+            borderA.vertices.forEach(vertex => {
+                p.vertex(vertex.x, vertex.y);
+            })
+            p.endShape(p.CLOSE);
+        });
+
+        //Draw BorderB
+        engine.world.bodies.forEach(body => {
+            p.beginShape()
+            borderB.vertices.forEach(vertex => {
+                p.vertex(vertex.x, vertex.y);
+            })
+            p.endShape(p.CLOSE);
+        });
+
+        // Draw HoopPole
+        p.fill('#757575');
+
+        engine.world.bodies.forEach(body => {
+            p.beginShape()
+            hoopPole.vertices.forEach(vertex => {
+                p.vertex(vertex.x, vertex.y);
+            })
+            p.endShape(p.CLOSE);
+        });
+
+        // Draw HoopBackboard
+        p.fill('white');
+
+        engine.world.bodies.forEach(body => {
+            p.beginShape()
+            hoopBackboard.vertices.forEach(vertex => {
+                p.vertex(vertex.x, vertex.y);
+            })
+            p.endShape(p.CLOSE);
+        });
+
+        // Draw HoopPaint
+        p.fill('red');
+
+        engine.world.bodies.forEach(body => {
+            p.beginShape()
+            hoopPaint.vertices.forEach(vertex => {
+                p.vertex(vertex.x, vertex.y);
+            })
+            p.endShape(p.CLOSE);
+        });
+
+        // Draw RimCollisionA
+        p.fill('#f74323');
+
+        engine.world.bodies.forEach(body => {
+            p.beginShape()
+            rimCollisionA.vertices.forEach(vertex => {
+                p.vertex(vertex.x, vertex.y);
+            })
+            p.endShape(p.CLOSE);
+        });
+
+        // Draw RimCollisionB
+        engine.world.bodies.forEach(body => {
+            p.beginShape()
+            rimCollisionB.vertices.forEach(vertex => {
+                p.vertex(vertex.x, vertex.y);
+            })
+            p.endShape(p.CLOSE);
+        });
+
+        // Draw HoopRim
+        engine.world.bodies.forEach(body => {
+            p.beginShape()
+            hoopRim.vertices.forEach(vertex => {
                 p.vertex(vertex.x, vertex.y);
             })
             p.endShape(p.CLOSE);
