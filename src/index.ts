@@ -33,9 +33,9 @@ let sketch = function (p: p5) {
         hoopPole.collisionFilter = { 'group': -1 };
         hoopBackboard = Bodies.rectangle(1400, 200, 30, 200, { isStatic: true });
         hoopPaint = Bodies.rectangle(1390, 250, 10, 100, { isStatic: true });
-        rimCollisionR = Bodies.rectangle(1380, 275, 10, 10, { isStatic: true });
-        rimCollisionL = Bodies.rectangle(1285, 275, 10, 10, { isStatic: true });
-        hoopRim = Bodies.rectangle(1330, 275, 100, 10, { isStatic: true });
+        rimCollisionR = Bodies.rectangle(1375, 275, 20, 10, { isStatic: true });
+        rimCollisionL = Bodies.rectangle(1290, 275, 10, 10, { isStatic: true });
+        hoopRim = Bodies.rectangle(1335, 275, 100, 10, { isStatic: true });
         hoopRim.collisionFilter = { 'group': -1 };
 
         World.add(engine.world, [ballA, boxA, ground, borderA, borderB, hoopPole, hoopBackboard, hoopPaint, rimCollisionR, rimCollisionL, hoopRim]);
