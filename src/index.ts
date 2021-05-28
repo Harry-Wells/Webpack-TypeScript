@@ -1,6 +1,9 @@
-import * as p5 from 'p5';
+import p5 from 'p5';
 
 import * as Matter from 'matter-js';
+
+let height = 0;
+let power = 0;
 
 var Engine = Matter.Engine,
     World = Matter.World,
@@ -41,6 +44,9 @@ let sketch = function (p: p5) {
         World.add(engine.world, [ballA, boxA, ground, borderA, borderB, hoopPole, hoopBackboard, hoopPaint, rimCollisionR, rimCollisionL, hoopRim]);
 
         engine.world.gravity.y = 3;
+
+        this.textSize(16);
+        this.textAlign();
     };
 
     p.draw = function () {
@@ -160,17 +166,38 @@ let sketch = function (p: p5) {
             p.endShape(p.CLOSE);
         });
 
+        // Draw Height & Power Values
+        p.fill('white');
+        this.text('Height = ' + height, 1400, 25);
+        this.text('Power = ' + power, 1400, 50);
+
         if (p.keyIsDown(p.UP_ARROW)) {
             Matter.Body.applyForce(ballA, ballA.position, { x: 0, y: -0.01 });
+            height = height + 1;
+            if (height > 359) {
+                height = 0;
+            };
         }
         if (p.keyIsDown(p.LEFT_ARROW)) {
             Matter.Body.applyForce(ballA, ballA.position, { x: -0.01, y: 0 });
+            power = power - 1;
+            if (power < 0) {
+                power = 0;
+            };
         }
         if (p.keyIsDown(p.RIGHT_ARROW)) {
             Matter.Body.applyForce(ballA, ballA.position, { x: +0.01, y: 0 });
+            power = power + 1;
+            if (power > 100) {
+                power = 100;
+            };
         }
         if (p.keyIsDown(p.DOWN_ARROW)) {
             Matter.Body.applyForce(ballA, ballA.position, { x: 0, y: +0.01 });
+            height = height - 1;
+            if (height < 0) {
+                height = 359;
+            };
         }
         if (p.keyIsDown(87)) {
             Matter.Body.applyForce(ballA, ballA.position, { x: 0, y: -0.01 });
@@ -184,8 +211,38 @@ let sketch = function (p: p5) {
         if (p.keyIsDown(83)) {
             Matter.Body.applyForce(ballA, ballA.position, { x: 0, y: +0.01 });
         }
+
+/* Actual Controls
+        if (p.keyIsDown(p.UP_ARROW)) {
+            height =+ 1;
+        }
+        if (p.keyIsDown(p.LEFT_ARROW)) {
+            power =- 1;
+        }
+        if (p.keyIsDown(p.RIGHT_ARROW)) {
+            power =+ 1;
+        }
+        if (p.keyIsDown(p.DOWN_ARROW)) {
+            height =- 1;
+        }
+        if (p.keyIsDown(87)) {
+            height =+ 1;
+        }
+        if (p.keyIsDown(65)) {
+            power = power - 1;
+        }
+        if (p.keyIsDown(68)) {
+            power =+ 1;
+        }
+        if (p.keyIsDown(83)) {
+            height =- 1;
+        }
+        if (p.keyIsDown(p.ENTER)) {
+            Matter.Body.applyForce(ballA, ballA.position, { x: 0, y: -(height * 0.01) });
+            Matter.Body.applyForce(ballA, ballA.position, { x: height * 0.01, y: 0 });
+        }
+*/
     };
 };
-
 
 let myp5 = new p5(sketch);
