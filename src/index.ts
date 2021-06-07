@@ -171,6 +171,7 @@ let sketch = function (p: p5) {
         this.text('Height = ' + height, 1400, 25);
         this.text('Power = ' + power, 1400, 50);
 
+/* Test Controls
         if (p.keyIsDown(p.UP_ARROW)) {
             Matter.Body.applyForce(ballA, ballA.position, { x: 0, y: -0.01 });
             height = height + 1;
@@ -211,37 +212,61 @@ let sketch = function (p: p5) {
         if (p.keyIsDown(83)) {
             Matter.Body.applyForce(ballA, ballA.position, { x: 0, y: +0.01 });
         }
-
-/* Actual Controls
+*/
         if (p.keyIsDown(p.UP_ARROW)) {
-            height =+ 1;
+            height = height + 1;
+            if (height > 100) {
+                height = 100;
+            };
         }
         if (p.keyIsDown(p.LEFT_ARROW)) {
-            power =- 1;
+            power = power - 1;
+            if (power < -100) {
+                power = -100;
+            };
         }
         if (p.keyIsDown(p.RIGHT_ARROW)) {
-            power =+ 1;
+            power = power + 1;
+            if (power > 100) {
+                power = 100;
+            };
         }
         if (p.keyIsDown(p.DOWN_ARROW)) {
-            height =- 1;
+            height = height - 1;
+            if (height < 0) {
+                height = 0;
+            };
         }
         if (p.keyIsDown(87)) {
-            height =+ 1;
+            height = height + 1;
+            if (height > 100) {
+                height = 100;
+            };
         }
         if (p.keyIsDown(65)) {
             power = power - 1;
+            if (power < -100) {
+                power = -100;
+            };
         }
         if (p.keyIsDown(68)) {
-            power =+ 1;
+            power = power + 1;
+            if (power > 100) {
+                power = 100;
+            };
         }
         if (p.keyIsDown(83)) {
-            height =- 1;
+            height = height - 1;
+            if (height < 0) {
+                height = 0;
+            };
         }
         if (p.keyIsDown(p.ENTER)) {
-            Matter.Body.applyForce(ballA, ballA.position, { x: 0, y: -(height * 0.01) });
-            Matter.Body.applyForce(ballA, ballA.position, { x: height * 0.01, y: 0 });
+            Matter.Body.applyForce(ballA, ballA.position, { x: 0, y: -(height * 0.005) });
+            Matter.Body.applyForce(ballA, ballA.position, { x: power * 0.005, y: 0 });
+            height = 0;
+            power = 0;
         }
-*/
     };
 };
 
