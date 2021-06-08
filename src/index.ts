@@ -262,8 +262,8 @@ let sketch = function (p: p5) {
             };
         }
         if (p.keyIsDown(p.ENTER)) {
-            Matter.Body.applyForce(ballA, ballA.position, { x: 0, y: -(height * 0.009) });
-            Matter.Body.applyForce(ballA, ballA.position, { x: power * 0.009, y: 0 });
+            Matter.Body.applyForce(ballA, ballA.position, { x: 0, y: -(height * 0.008) });
+            Matter.Body.applyForce(ballA, ballA.position, { x: power * 0.008, y: 0 });
             height = 0;
             power = 0;
         }
