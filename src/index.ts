@@ -22,6 +22,8 @@ let sketch = function (p: p5) {
     var hoopRim: Matter.Body;
     var rimCollisionR: Matter.Body;
     var rimCollisionL: Matter.Body;
+    var netA: Matter.Body;
+    var netB : Matter.Body;
 
     p.setup = function () {
         p.createCanvas(1500, 700);
@@ -40,13 +42,15 @@ let sketch = function (p: p5) {
         rimCollisionL = Bodies.rectangle(1290, 275, 10, 10, { isStatic: true });
         hoopRim = Bodies.rectangle(1335, 275, 100, 10, { isStatic: true });
         hoopRim.collisionFilter = { 'group': -1 };
+        netA = Bodies.rectangle(1382.5, 310, 5, 60, { isStatic: true });
+        netB = Bodies.rectangle(1287.5, 310, 5, 60, { isStatic: true });
 
-        World.add(engine.world, [ballA, boxA, ground, borderA, borderB, hoopPole, hoopBackboard, hoopPaint, rimCollisionR, rimCollisionL, hoopRim]);
+        World.add(engine.world, [ballA, boxA, ground, borderA, borderB, hoopPole, hoopBackboard, hoopPaint, rimCollisionR, rimCollisionL, hoopRim, netA, netB]);
 
         engine.world.gravity.y = 3;
 
-        this.textSize(16);
-        this.textAlign();
+        p.textSize(16);
+        p.textAlign();
     };
 
     p.draw = function () {
@@ -165,40 +169,73 @@ let sketch = function (p: p5) {
             })
             p.endShape(p.CLOSE);
         });
+        p.stroke(0);
 
-        // Draw Height & Power Values
+        // Draw NetA
         p.fill('white');
-        this.text('Height = ' + height, 1400, 25);
-        this.text('Power = ' + power, 1400, 50);
+
+        engine.world.bodies.forEach(body => {
+            p.beginShape()
+            netA.vertices.forEach(vertex => {
+                p.vertex(vertex.x, vertex.y);
+            })
+            p.endShape(p.CLOSE);
+        });
+
+        // Draw NetB
+        engine.world.bodies.forEach(body => {
+            p.beginShape()
+            netB.vertices.forEach(vertex => {
+                p.vertex(vertex.x, vertex.y);
+            })
+            p.endShape(p.CLOSE);
+        });
+
+        // Draw Net Design
+        p.stroke(255);
+
+        p.line(1287.5, 290, 1307.5, 280);
+        p.line(1287.5, 300, 1322.5, 280);
+        p.line(1287.5, 310, 1337.5, 280);
+        p.line(1287.5, 320, 1352.5, 280);
+        p.line(1287.5, 330, 1367.5, 280);
+        p.line(1287.5, 340, 1382.5, 280);
+        p.line(1302.5, 340, 1382.5, 290);
+        p.line(1317.5, 340, 1382.5, 300);
+        p.line(1332.5, 340, 1382.5, 310);
+        p.line(1347.5, 340, 1382.5, 320);
+        p.line(1362.5, 340, 1382.5, 330);
+
+        p.line(1362.5, 280, 1382.5, 290);
+        p.line(1347.5, 280, 1382.5, 300);
+        p.line(1332.5, 280, 1382.5, 310);
+        p.line(1317.5, 280, 1382.5, 320);
+        p.line(1302.5, 280, 1382.5, 330);
+        p.line(1287.5, 280, 1382.5, 340);
+        p.line(1287.5, 290, 1367.5, 340);
+        p.line(1287.5, 300, 1352.5, 340);
+        p.line(1287.5, 310, 1337.5, 340);
+        p.line(1287.5, 320, 1322.5, 340);
+        p.line(1287.5, 330, 1307.5, 340);
+        
+        // Draw Height & Power Values
+        p.stroke(0);
+        p.fill('white');
+        p.text('Height = ' + height, 1400, 25);
+        p.text('Power = ' + power, 1400, 50);
 
 /* Test Controls
         if (p.keyIsDown(p.UP_ARROW)) {
             Matter.Body.applyForce(ballA, ballA.position, { x: 0, y: -0.01 });
-            height = height + 1;
-            if (height > 359) {
-                height = 0;
-            };
         }
         if (p.keyIsDown(p.LEFT_ARROW)) {
             Matter.Body.applyForce(ballA, ballA.position, { x: -0.01, y: 0 });
-            power = power - 1;
-            if (power < 0) {
-                power = 0;
-            };
         }
         if (p.keyIsDown(p.RIGHT_ARROW)) {
             Matter.Body.applyForce(ballA, ballA.position, { x: +0.01, y: 0 });
-            power = power + 1;
-            if (power > 100) {
-                power = 100;
-            };
         }
         if (p.keyIsDown(p.DOWN_ARROW)) {
             Matter.Body.applyForce(ballA, ballA.position, { x: 0, y: +0.01 });
-            height = height - 1;
-            if (height < 0) {
-                height = 359;
-            };
         }
         if (p.keyIsDown(87)) {
             Matter.Body.applyForce(ballA, ballA.position, { x: 0, y: -0.01 });
