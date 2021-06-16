@@ -5,6 +5,9 @@ import * as Matter from 'matter-js';
 let height = 0;
 let power = 0;
 
+var shot = false
+var levelC = false
+
 var Engine = Matter.Engine,
     World = Matter.World,
     Bodies = Matter.Bodies;
@@ -24,8 +27,6 @@ let sketch = function (p: p5) {
     var rimCollisionL: Matter.Body;
     var netA: Matter.Body;
     var netB : Matter.Body;
-    var netC : Matter.Body;
-    var rimBlocker : Matter.Body;
 
     p.setup = function () {
         p.createCanvas(1500, 700);
@@ -46,9 +47,8 @@ let sketch = function (p: p5) {
         hoopRim.collisionFilter = { 'group': -1 };
         netA = Bodies.rectangle(1381.5, 310, 3, 60, { isStatic: true });
         netB = Bodies.rectangle(1288.5, 310, 3, 60, { isStatic: true });
-        netC = Bodies.rectangle(1335, 341.5, 95, 3, { isStatic: true });
 
-        World.add(engine.world, [ballA, boxA, ground, borderA, borderB, hoopPole, hoopBackboard, hoopPaint, rimCollisionR, rimCollisionL, hoopRim, netA, netB, netC]);
+        World.add(engine.world, [ballA, boxA, ground, borderA, borderB, hoopPole, hoopBackboard, hoopPaint, rimCollisionR, rimCollisionL, hoopRim, netA, netB]);
 
         engine.world.gravity.y = 3;
 
@@ -196,15 +196,6 @@ let sketch = function (p: p5) {
             p.endShape(p.CLOSE);
         });
 
-        // Draw NetC
-        engine.world.bodies.forEach(body => {
-            p.beginShape()
-            netC.vertices.forEach(vertex => {
-                p.vertex(vertex.x, vertex.y);
-            })
-            p.endShape(p.CLOSE);
-        });
-
         // Draw Net Design
         p.stroke(255);
 
@@ -312,17 +303,24 @@ let sketch = function (p: p5) {
                 height = 0;
             };
         }
-        if (p.keyIsDown(p.ENTER)) {
-            Matter.Body.applyForce(ballA, ballA.position, { x: 0, y: -(height * 0.008) });
-            Matter.Body.applyForce(ballA, ballA.position, { x: power * 0.008, y: 0 });
-            height = 0;
-            power = 0;
+        // Checks that the user has not already shot the ball
+        if (shot == false) {
+            if (p.keyIsDown(p.ENTER)) {
+                Matter.Body.applyForce(ballA, ballA.position, { x: 0, y: -(height * 0.008) });
+                Matter.Body.applyForce(ballA, ballA.position, { x: power * 0.008, y: 0 });
+                height = 0;
+                power = 0;
+                shot = true;
+            }
         }
 
         // Check if the ball has landed in the basket
         var distBallA = p.dist(ballA.position.x, ballA.position.y, 1335, 310);
         if (distBallA < 25) {
-            p.text('Level Completed!', 750, 200)
+            levelC = true;
+        }
+        if (levelC == true) {
+            p.text('Level Completed!', 750, 200);
         }
     };
 };
