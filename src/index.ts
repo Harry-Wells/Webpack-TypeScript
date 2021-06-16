@@ -24,6 +24,8 @@ let sketch = function (p: p5) {
     var rimCollisionL: Matter.Body;
     var netA: Matter.Body;
     var netB : Matter.Body;
+    var netC : Matter.Body;
+    var rimBlocker : Matter.Body;
 
     p.setup = function () {
         p.createCanvas(1500, 700);
@@ -42,10 +44,11 @@ let sketch = function (p: p5) {
         rimCollisionL = Bodies.rectangle(1290, 275, 10, 10, { isStatic: true });
         hoopRim = Bodies.rectangle(1335, 275, 100, 10, { isStatic: true });
         hoopRim.collisionFilter = { 'group': -1 };
-        netA = Bodies.rectangle(1382.5, 310, 5, 60, { isStatic: true });
-        netB = Bodies.rectangle(1287.5, 310, 5, 60, { isStatic: true });
+        netA = Bodies.rectangle(1381.5, 310, 3, 60, { isStatic: true });
+        netB = Bodies.rectangle(1288.5, 310, 3, 60, { isStatic: true });
+        netC = Bodies.rectangle(1335, 341.5, 95, 3, { isStatic: true });
 
-        World.add(engine.world, [ballA, boxA, ground, borderA, borderB, hoopPole, hoopBackboard, hoopPaint, rimCollisionR, rimCollisionL, hoopRim, netA, netB]);
+        World.add(engine.world, [ballA, boxA, ground, borderA, borderB, hoopPole, hoopBackboard, hoopPaint, rimCollisionR, rimCollisionL, hoopRim, netA, netB, netC]);
 
         engine.world.gravity.y = 3;
 
@@ -57,6 +60,7 @@ let sketch = function (p: p5) {
         Engine.update(engine, 10);
 
         p.background('blue');
+
         // Draw BallA
         p.fill('orange');
 
@@ -169,7 +173,8 @@ let sketch = function (p: p5) {
             })
             p.endShape(p.CLOSE);
         });
-        p.stroke(0);
+
+        p.noStroke();
 
         // Draw NetA
         p.fill('white');
@@ -186,6 +191,15 @@ let sketch = function (p: p5) {
         engine.world.bodies.forEach(body => {
             p.beginShape()
             netB.vertices.forEach(vertex => {
+                p.vertex(vertex.x, vertex.y);
+            })
+            p.endShape(p.CLOSE);
+        });
+
+        // Draw NetC
+        engine.world.bodies.forEach(body => {
+            p.beginShape()
+            netC.vertices.forEach(vertex => {
                 p.vertex(vertex.x, vertex.y);
             })
             p.endShape(p.CLOSE);
@@ -303,6 +317,12 @@ let sketch = function (p: p5) {
             Matter.Body.applyForce(ballA, ballA.position, { x: power * 0.008, y: 0 });
             height = 0;
             power = 0;
+        }
+
+        // Check if the ball has landed in the basket
+        var distBallA = p.dist(ballA.position.x, ballA.position.y, 1335, 310);
+        if (distBallA < 25) {
+            p.text('Level Completed!', 750, 200)
         }
     };
 };
