@@ -300,10 +300,10 @@ let sketch = function (p: p5) {
 
         // Display level failure text if the ball is stationary after the user has taken the shot
         if (shot == true) {
-            if (ballA.velocity.x < 0.001) {
-                if (ballA.velocity.x > -0.001) {
-                    if (ballA.velocity.y < 0.001) {
-                        if (ballA.velocity.y > -0.001) {
+            if (ballA.velocity.x < 0.01) {
+                if (ballA.velocity.x > -0.01) {
+                    if (ballA.velocity.y < 0.01) {
+                        if (ballA.velocity.y > -0.01) {
                             levelF = true;
                         }
                     }
