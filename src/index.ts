@@ -7,6 +7,7 @@ let power = 0;
 
 var shot = false
 var levelC = false
+var levelF = false
 
 var Engine = Matter.Engine,
     World = Matter.World,
@@ -229,33 +230,6 @@ let sketch = function (p: p5) {
         p.text('Height = ' + height, 1400, 25);
         p.text('Power = ' + power, 1400, 50);
 
-/* Test Controls
-        if (p.keyIsDown(p.UP_ARROW)) {
-            Matter.Body.applyForce(ballA, ballA.position, { x: 0, y: -0.01 });
-        }
-        if (p.keyIsDown(p.LEFT_ARROW)) {
-            Matter.Body.applyForce(ballA, ballA.position, { x: -0.01, y: 0 });
-        }
-        if (p.keyIsDown(p.RIGHT_ARROW)) {
-            Matter.Body.applyForce(ballA, ballA.position, { x: +0.01, y: 0 });
-        }
-        if (p.keyIsDown(p.DOWN_ARROW)) {
-            Matter.Body.applyForce(ballA, ballA.position, { x: 0, y: +0.01 });
-        }
-        if (p.keyIsDown(87)) {
-            Matter.Body.applyForce(ballA, ballA.position, { x: 0, y: -0.01 });
-        }
-        if (p.keyIsDown(65)) {
-            Matter.Body.applyForce(ballA, ballA.position, { x: -0.01, y: 0 });
-        }
-        if (p.keyIsDown(68)) {
-            Matter.Body.applyForce(ballA, ballA.position, { x: +0.01, y: 0 });
-        }
-        if (p.keyIsDown(83)) {
-            Matter.Body.applyForce(ballA, ballA.position, { x: 0, y: +0.01 });
-        }
-*/
-
         // Checks that the user has not already shot the ball
         if (shot == false) {
             if (p.keyIsDown(p.UP_ARROW)) {
@@ -322,6 +296,29 @@ let sketch = function (p: p5) {
         }
         if (levelC == true) {
             p.text('Level Completed!', 750, 200);
+        }
+
+        // Display level failure text if the ball is stationary after the user has taken the shot
+        if (shot == true) {
+            if (ballA.velocity.x < 0.001) {
+                if (ballA.velocity.x > -0.001) {
+                    if (ballA.velocity.y < 0.001) {
+                        if (ballA.velocity.y > -0.001) {
+                            levelF = true;
+                        }
+                    }
+                }
+            }           
+        }
+
+        // Don't display level failure text if level has been completed
+        if (levelC == true) {
+            levelF = false;
+        }
+
+        // Display level failure text if the user has failed the level
+        if (levelF == true) {
+            p.text('Level Failed!', 750, 200);
         }
     };
 };
