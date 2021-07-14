@@ -62,24 +62,6 @@ let sketch = function (p: p5) {
     };
 
     p.draw = function () {
-        if (screen == 'home') {
-            height = 0;
-            power = 0;
-            shot = false;
-            levelC = false;
-            levelF = false;
-            p.background('black');
-            p.fill('white');
-            p.textSize(75);
-            p.textAlign(p.CENTER);
-            p.text('Title', 750, 100);
-            p.textSize(25);
-            p.text('Press Enter to play', 750, 300);
-            if (p.keyIsDown(p.ENTER)) {
-                screen = 'level1'
-            }
-        }
-
         if (screen == 'level1') {
 
             Engine.update(engine, 10);
@@ -340,6 +322,41 @@ let sketch = function (p: p5) {
             if (levelF == true) {
                 p.text('Level Failed!', 750, 200);
                 screen = 'levelFS';
+            }
+        }
+
+        if (screen == 'home') {
+            height = 0;
+            power = 0;
+            shot = false;
+            levelC = false;
+            levelF = false;
+            p.background('black');
+            p.fill('white');
+            p.textSize(75);
+            p.textAlign(p.CENTER);
+            p.text('Title', 750, 100);
+            p.textSize(25);
+            p.text('Press Enter to continue to level selection', 750, 300);
+            if (p.keyIsDown(p.ENTER)) {
+                screen = 'levelSel'
+            }
+        }
+
+        if (screen == 'levelSel') {
+            p.background('black');
+            p.fill('purple');
+            p.rect(100, 200, 100, 100);
+            p.fill('white');
+            p.textSize(75);
+            p.textAlign(p.CENTER);
+            p.text('Level Selection', 750, 100);
+            p.textSize(25);
+            p.text('Press the number on your keyboard corresponding to the level that you would like to play', 750, 600);
+            p.textSize(50);
+            p.text('1', 150, 265);
+            if (p.keyIsDown(49)) {
+                screen = 'level1'
             }
         }
 
