@@ -232,6 +232,7 @@ let sketch = function (p: p5) {
             p.line(1287.5, 330, 1307.5, 340);
             
             // Draw Height & Power Values
+            p.textAlign(p.LEFT);
             p.stroke(0);
             p.fill('white');
             p.text('Height = ' + height, 1400, 25);
