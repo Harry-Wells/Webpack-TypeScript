@@ -237,6 +237,14 @@ let sketch = function (p: p5) {
             p.text('Height = ' + height, 1400, 25);
             p.text('Power = ' + power, 1400, 50);
 
+            // Draw instructions
+            p.text('Controls:', 5, 25);
+            p.text('Increase Height - W or Up Arrow', 5, 50);
+            p.text('Decrease Height - S or Down Arrow', 5, 75);
+            p.text('Increase Power - D or Right Arrow', 5, 100);
+            p.text('Decrease Power - A or Left Arrow', 5, 125);
+            p.text('Take Shot - Enter', 5, 150);
+
             // Checks that the user has not already shot the ball
             if (shot == false) {
                 if (p.keyIsDown(p.UP_ARROW)) {
