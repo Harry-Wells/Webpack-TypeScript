@@ -3,7 +3,8 @@ import p5 from 'p5';
 
 import * as Matter from 'matter-js';
 
-let screen = 'level1';
+let screen = 'level';
+let level = 1;
 
 let height = 0;
 let power = 0;
@@ -35,10 +36,9 @@ let sketch = function (p: p5) {
     p.setup = function () {
         p.createCanvas(1500, 700);
 
-        if (screen == 'level1') {
+        if (screen == 'level') {
             engine = Engine.create();
             ballA = Bodies.circle(200, 675, 25, { restitution: 1 });
-            boxA = Bodies.rectangle(750, 350, 75, 75, { isStatic: true });
             ground = Bodies.rectangle(400, 700, 10000, 60, { isStatic: true });
             borderA = Bodies.rectangle(-5, 350, 10, 10000, { isStatic: true });
             borderB = Bodies.rectangle(1505, 350, 10, 10000, { isStatic: true });
@@ -53,21 +53,84 @@ let sketch = function (p: p5) {
             netA = Bodies.rectangle(1381.5, 310, 3, 60, { isStatic: true });
             netB = Bodies.rectangle(1288.5, 310, 3, 60, { isStatic: true });
 
-            World.add(engine.world, [ballA, boxA, ground, borderA, borderB, hoopPole, hoopBackboard, hoopPaint, rimCollisionR, rimCollisionL, hoopRim, netA, netB]);
+            World.add(engine.world, [ballA, ground, borderA, borderB, hoopPole, hoopBackboard, hoopPaint, rimCollisionR, rimCollisionL, hoopRim, netA, netB]);
 
             engine.world.gravity.y = 3;
 
             p.textSize(16);
+
+            if (level == 1) {
+                boxA = Bodies.rectangle(750, 350, 75, 75, { isStatic: true });
+
+                World.add(engine.world, [boxA]);
+            }
+
+            if (level == 2) {
+
+            }
         };
     };
 
     p.draw = function () {
-        if (screen == 'level1') {
+        if (screen == 'level') {
 
             Engine.update(engine, 10);
 
             p.background('blue');
             p.textSize(16);
+
+            if (level == 1) {
+                // Draw BoxA
+                p.fill('#715428');
+
+                engine.world.bodies.forEach(body => {
+                    p.beginShape()
+                    boxA.vertices.forEach(vertex => {
+                        p.vertex(vertex.x, vertex.y);
+                    })
+                    p.endShape(p.CLOSE);
+                });
+
+                p.textAlign(p.LEFT);
+                p.stroke(0);
+                p.fill('white');
+
+                // Draw instructions
+                p.text('Controls:', 5, 25);
+                p.text('Increase Height - W or Up Arrow', 5, 50);
+                p.text('Decrease Height - S or Down Arrow', 5, 75);
+                p.text('Increase Power - D or Right Arrow', 5, 100);
+                p.text('Decrease Power - A or Left Arrow', 5, 125);
+                p.text('Take Shot - Enter', 5, 150);
+
+                p.textSize(50);
+                p.textAlign(p.CENTER);
+                p.text('Level 1', 750, 50);
+            }
+
+            if (level == 2) {
+                p.textSize(50);
+                p.textAlign(p.CENTER);
+                p.text('Level 2', 750, 50);
+            }
+
+            if (level == 3) {
+                p.textSize(50);
+                p.textAlign(p.CENTER);
+                p.text('Level 3', 750, 50);
+            }
+
+            if (level == 4) {
+                p.textSize(50);
+                p.textAlign(p.CENTER);
+                p.text('Level 4', 750, 50);
+            }
+
+            if (level == 5) {
+                p.textSize(50);
+                p.textAlign(p.CENTER);
+                p.text('Level 5', 750, 50);
+            }
 
             // Draw BallA
             p.fill('orange');
@@ -75,17 +138,6 @@ let sketch = function (p: p5) {
             engine.world.bodies.forEach(body => {
                 p.beginShape()
                 ballA.vertices.forEach(vertex => {
-                    p.vertex(vertex.x, vertex.y);
-                })
-                p.endShape(p.CLOSE);
-            });
-
-            // Draw BoxA
-            p.fill('#715428');
-
-            engine.world.bodies.forEach(body => {
-                p.beginShape()
-                boxA.vertices.forEach(vertex => {
                     p.vertex(vertex.x, vertex.y);
                 })
                 p.endShape(p.CLOSE);
@@ -232,19 +284,12 @@ let sketch = function (p: p5) {
             p.line(1287.5, 330, 1307.5, 340);
             
             // Draw Height & Power Values
+            p.textSize(16);
             p.textAlign(p.LEFT);
             p.stroke(0);
             p.fill('white');
             p.text('Height = ' + height, 1400, 25);
             p.text('Power = ' + power, 1400, 50);
-
-            // Draw instructions
-            p.text('Controls:', 5, 25);
-            p.text('Increase Height - W or Up Arrow', 5, 50);
-            p.text('Decrease Height - S or Down Arrow', 5, 75);
-            p.text('Increase Power - D or Right Arrow', 5, 100);
-            p.text('Decrease Power - A or Left Arrow', 5, 125);
-            p.text('Take Shot - Enter', 5, 150);
 
             // Checks that the user has not already shot the ball
             if (shot == false) {
@@ -363,9 +408,37 @@ let sketch = function (p: p5) {
             p.textSize(25);
             p.text('Press the number on your keyboard corresponding to the level that you would like to play', 750, 600);
             p.textSize(50);
+            p.fill('purple');
+            p.rect(100, 200, 100, 100);
+            p.rect(400, 200, 100, 100);
+            p.rect(700, 200, 100, 100);
+            p.rect(1000, 200, 100, 100);
+            p.rect(1300, 200, 100, 100);
+            p.fill('white');
             p.text('1', 150, 265);
             if (p.keyIsDown(49)) {
-                screen = 'level1'
+                screen = 'level'
+                level = 1
+            }
+            p.text('2', 450, 265);
+            if (p.keyIsDown(50)) {
+                screen = 'level'
+                level = 2
+            }
+            p.text('3', 750, 265);
+            if (p.keyIsDown(51)) {
+                screen = 'level'
+                level = 3
+            }
+            p.text('4', 1050, 265);
+            if (p.keyIsDown(52)) {
+                screen = 'level'
+                level = 4
+            }
+            p.text('5', 1350, 265);
+            if (p.keyIsDown(53)) {
+                screen = 'level'
+                level = 5
             }
         }
 
@@ -388,7 +461,8 @@ let sketch = function (p: p5) {
                 screen = 'home'
             }
             if (p.keyIsDown(82)) {
-                screen = 'level1'
+                screen = 'level'
+                level = 1
             }
         }
 
@@ -411,7 +485,7 @@ let sketch = function (p: p5) {
                 screen = 'home'
             }
             if (p.keyIsDown(82)) {
-                screen = 'level1'
+                screen = 'level'
             }
         }
 
