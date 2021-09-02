@@ -64,10 +64,6 @@ let sketch = function (p: p5) {
 
                 World.add(engine.world, [boxA]);
             }
-
-            if (level == 2) {
-
-            }
         };
     };
 
@@ -462,7 +458,6 @@ let sketch = function (p: p5) {
             }
             if (p.keyIsDown(82)) {
                 screen = 'level'
-                level = 1
             }
         }
 
