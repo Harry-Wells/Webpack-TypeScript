@@ -4,7 +4,7 @@ import p5 from 'p5';
 import * as Matter from 'matter-js';
 
 let screen = 'level';
-let level = 1;
+let level = 2;
 
 let height = 0;
 let power = 0;
@@ -20,7 +20,6 @@ var Engine = Matter.Engine,
 let sketch = function (p: p5) {
     let engine: Matter.Engine;
     var ballA: Matter.Body;
-    var boxA: Matter.Body;
     var ground: Matter.Body;
     var borderA: Matter.Body;
     var borderB: Matter.Body;
@@ -32,16 +31,65 @@ let sketch = function (p: p5) {
     var rimCollisionL: Matter.Body;
     var netA: Matter.Body;
     var netB : Matter.Body;
+    var boxLvl1: Matter.Body;
+    var boxLvl2A: Matter.Body;
+    var boxLvl2B: Matter.Body;
+    var boxLvl2C: Matter.Body;
+    var boxLvl2D: Matter.Body;
+    var boxLvl3A: Matter.Body;
+    var boxLvl3B: Matter.Body;
+    var boxLvl3C: Matter.Body;
+    var boxLvl3D: Matter.Body;
+    var boxLvl3E: Matter.Body;
+    var boxLvl3F: Matter.Body;
+    var boxLvl3G: Matter.Body;
+    var boxLvl3H: Matter.Body;
+    var boxLvl3I: Matter.Body;
+    var boxLvl3J: Matter.Body;
+    var boxLvl4: Matter.Body;
+    var boxLvl5A: Matter.Body;
+    var boxLvl5B: Matter.Body;
+    var boxLvl5C: Matter.Body;
+    var boxLvl5D: Matter.Body;
+    var boxLvl5E: Matter.Body;
+    var boxLvl5F: Matter.Body;
+    var boxLvl5G: Matter.Body;
+    var boxLvl5H: Matter.Body;
+    var boxLvl5I: Matter.Body;
+    var boxLvl5J: Matter.Body;
+    var boxLvl5K: Matter.Body;
 
     p.setup = function () {
         p.createCanvas(1500, 700);
+
+        engine = Engine.create();
+        ballA = Bodies.circle(200, 675, 25, { restitution: 1 });
+        ground = Bodies.rectangle(400, 700, 10000, 60, { isStatic: true });
+        borderA = Bodies.rectangle(-5, 350, 10, 10000, { isStatic: true });
+        borderB = Bodies.rectangle(1505, 350, 10, 10000, { isStatic: true });
+        hoopPole = Bodies.rectangle(1400, 475, 25, 390, { isStatic: true });
+        hoopPole.collisionFilter = { 'group': -1 };
+        hoopBackboard = Bodies.rectangle(1400, 200, 30, 200, { isStatic: true });
+        hoopPaint = Bodies.rectangle(1390, 250, 10, 100, { isStatic: true });
+        rimCollisionR = Bodies.rectangle(1375, 275, 20, 10, { isStatic: true });
+        rimCollisionL = Bodies.rectangle(1290, 275, 10, 10, { isStatic: true });
+        hoopRim = Bodies.rectangle(1335, 275, 100, 10, { isStatic: true });
+        hoopRim.collisionFilter = { 'group': -1 };
+        netA = Bodies.rectangle(1381.5, 310, 3, 60, { isStatic: true });
+        netB = Bodies.rectangle(1288.5, 310, 3, 60, { isStatic: true });
+
+        World.add(engine.world, [ballA, ground, borderA, borderB, hoopPole, hoopBackboard, hoopPaint, rimCollisionR, rimCollisionL, hoopRim, netA, netB]);
+
+        engine.world.gravity.y = 3;
+
+        p.textSize(16);
 
         if (screen == 'level') {
             engine = Engine.create();
             ballA = Bodies.circle(200, 675, 25, { restitution: 1 });
             ground = Bodies.rectangle(400, 700, 10000, 60, { isStatic: true });
-            borderA = Bodies.rectangle(-5, 350, 10, 10000, { isStatic: true });
-            borderB = Bodies.rectangle(1505, 350, 10, 10000, { isStatic: true });
+            borderA = Bodies.rectangle(-500, 350, 1000, 10000, { isStatic: true });
+            borderB = Bodies.rectangle(2000, 350, 1000, 10000, { isStatic: true });
             hoopPole = Bodies.rectangle(1400, 475, 25, 390, { isStatic: true });
             hoopPole.collisionFilter = { 'group': -1 };
             hoopBackboard = Bodies.rectangle(1400, 200, 30, 200, { isStatic: true });
@@ -60,9 +108,57 @@ let sketch = function (p: p5) {
             p.textSize(16);
 
             if (level == 1) {
-                boxA = Bodies.rectangle(750, 350, 75, 75, { isStatic: true });
+                boxLvl1 = Bodies.rectangle(750, 350, 75, 75, { isStatic: true });
 
-                World.add(engine.world, [boxA]);
+                World.add(engine.world, [boxLvl1]);
+            }
+
+            if (level == 2) {
+                boxLvl2A = Bodies.rectangle(1110, 25, 550, 50, { isStatic: true });
+                boxLvl2B = Bodies.rectangle(950, 175, 100, 50, { isStatic: true });
+                boxLvl2C = Bodies.rectangle(1075, 225, 100, 50, { isStatic: true });
+                boxLvl2D = Bodies.rectangle(1200, 275, 100, 50, { isStatic: true });
+
+                World.add(engine.world, [boxLvl2A, boxLvl2B, boxLvl2C, boxLvl2D])
+            }
+
+            if (level == 3) {
+                boxLvl3A = Bodies.rectangle(750, 660, 50, 20, { isStatic: true });
+                boxLvl3B = Bodies.rectangle(750, 525, 50, 250);
+                boxLvl3C = Bodies.rectangle(200, 300, 100, 100, { isStatic: true });
+                boxLvl3D = Bodies.rectangle(1100, 400, 100, 100, { isStatic: true });
+                boxLvl3E = Bodies.rectangle(900, 250, 100, 100, { isStatic: true });
+                boxLvl3E.collisionFilter = { 'group': -1 };
+                boxLvl3F = Bodies.rectangle(400, 645, 100, 50, { isStatic: true });
+                boxLvl3G = Bodies.rectangle(600, 200, 100, 100, { isStatic: true });
+                boxLvl3H = Bodies.rectangle(1300, 200, 100, 100, { isStatic: true });
+                boxLvl3H.collisionFilter = { 'group': -1 };
+                boxLvl3I = Bodies.rectangle(300, 100, 100, 100, { isStatic: true });
+                boxLvl3J = Bodies.rectangle(1450, 645, 50, 50);
+
+                World.add(engine.world, [boxLvl3A, boxLvl3B, boxLvl3C, boxLvl3D, boxLvl3E, boxLvl3F, boxLvl3G, boxLvl3H, boxLvl3I, boxLvl3J]);
+            }
+
+            if (level == 4) {
+                boxLvl4 = Bodies.rectangle(750, 350, 300, 700, { isStatic: true });
+
+                World.add(engine.world, [boxLvl4]);
+            }
+
+            if (level == 5) {
+                boxLvl5A = Bodies.rectangle(500, 620, 200, 100, { isStatic: true });
+                boxLvl5B = Bodies.rectangle(700, 520, 200, 100, { isStatic: true });
+                boxLvl5C = Bodies.rectangle(900, 420, 200, 100, { isStatic: true });
+                boxLvl5D = Bodies.rectangle(1100, 320, 200, 100, { isStatic: true });
+                boxLvl5E = Bodies.rectangle(100, 550, 200, 100, { isStatic: true });
+                boxLvl5F = Bodies.rectangle(300, 450, 200, 100, { isStatic: true });
+                boxLvl5G = Bodies.rectangle(500, 350, 200, 100, { isStatic: true });
+                boxLvl5H = Bodies.rectangle(700, 250, 200, 100, { isStatic: true });
+                boxLvl5I = Bodies.rectangle(900, 150, 200, 100, { isStatic: true });
+                boxLvl5J = Bodies.rectangle(1100, 75, 200, 50, { isStatic: true });
+                boxLvl5K = Bodies.rectangle(1350, 25, 300, 50, { isStatic: true });
+
+                World.add(engine.world, [boxLvl5A, boxLvl5B, boxLvl5C, boxLvl5D, boxLvl5E, boxLvl5F, boxLvl5G, boxLvl5H, boxLvl5I, boxLvl5J, boxLvl5K])
             }
         };
     };
@@ -76,12 +172,12 @@ let sketch = function (p: p5) {
             p.textSize(16);
 
             if (level == 1) {
-                // Draw BoxA
+                // Draw BoxLvl1
                 p.fill('#715428');
 
                 engine.world.bodies.forEach(body => {
                     p.beginShape()
-                    boxA.vertices.forEach(vertex => {
+                    boxLvl1.vertices.forEach(vertex => {
                         p.vertex(vertex.x, vertex.y);
                     })
                     p.endShape(p.CLOSE);
@@ -102,30 +198,275 @@ let sketch = function (p: p5) {
                 p.textSize(50);
                 p.textAlign(p.CENTER);
                 p.text('Level 1', 750, 50);
+                p.textSize(16);
+                p.text("As simple as it'll get", 750, 75);
             }
 
             if (level == 2) {
+                p.fill('#715428');
+
+                engine.world.bodies.forEach(body => {
+                    p.beginShape()
+                    boxLvl2A.vertices.forEach(vertex => {
+                        p.vertex(vertex.x, vertex.y);
+                    })
+                    p.endShape(p.CLOSE);
+                });
+
+                p.fill('#715428');
+
+                engine.world.bodies.forEach(body => {
+                    p.beginShape()
+                    boxLvl2B.vertices.forEach(vertex => {
+                        p.vertex(vertex.x, vertex.y);
+                    })
+                    p.endShape(p.CLOSE);
+                });
+
+                p.fill('#715428');
+
+                engine.world.bodies.forEach(body => {
+                    p.beginShape()
+                    boxLvl2C.vertices.forEach(vertex => {
+                        p.vertex(vertex.x, vertex.y);
+                    })
+                    p.endShape(p.CLOSE);
+                });
+
+                p.fill('#715428');
+
+                engine.world.bodies.forEach(body => {
+                    p.beginShape()
+                    boxLvl2D.vertices.forEach(vertex => {
+                        p.vertex(vertex.x, vertex.y);
+                    })
+                    p.endShape(p.CLOSE);
+                });
+
+                p.fill('white');
                 p.textSize(50);
                 p.textAlign(p.CENTER);
                 p.text('Level 2', 750, 50);
+                p.textSize(16);
+                p.text('Bouncing Down', 750, 75)
             }
 
             if (level == 3) {
-                p.textSize(50);
                 p.textAlign(p.CENTER);
+                p.fill('white');
+                p.text('But', 750, 425);
+                p.text('things', 750, 450);
+                p.text('may', 750, 475);
+                p.text('not', 750, 500);
+                p.text('be', 750, 525);
+                p.text('as', 750, 550);
+                p.text('they', 750, 575);
+                p.text('seem', 750, 600);
+
+                p.fill('#715428');
+
+                engine.world.bodies.forEach(body => {
+                    p.beginShape()
+                    boxLvl3A.vertices.forEach(vertex => {
+                        p.vertex(vertex.x, vertex.y);
+                    })
+                    p.endShape(p.CLOSE);
+                });
+
+                engine.world.bodies.forEach(body => {
+                    p.beginShape()
+                    boxLvl3B.vertices.forEach(vertex => {
+                        p.vertex(vertex.x, vertex.y);
+                    })
+                    p.endShape(p.CLOSE);
+                });
+
+                engine.world.bodies.forEach(body => {
+                    p.beginShape()
+                    boxLvl3C.vertices.forEach(vertex => {
+                        p.vertex(vertex.x, vertex.y);
+                    })
+                    p.endShape(p.CLOSE);
+                });
+
+                engine.world.bodies.forEach(body => {
+                    p.beginShape()
+                    boxLvl3D.vertices.forEach(vertex => {
+                        p.vertex(vertex.x, vertex.y);
+                    })
+                    p.endShape(p.CLOSE);
+                });
+
+                engine.world.bodies.forEach(body => {
+                    p.beginShape()
+                    boxLvl3E.vertices.forEach(vertex => {
+                        p.vertex(vertex.x, vertex.y);
+                    })
+                    p.endShape(p.CLOSE);
+                });
+
+                engine.world.bodies.forEach(body => {
+                    p.beginShape()
+                    boxLvl3F.vertices.forEach(vertex => {
+                        p.vertex(vertex.x, vertex.y);
+                    })
+                    p.endShape(p.CLOSE);
+                });
+
+                engine.world.bodies.forEach(body => {
+                    p.beginShape()
+                    boxLvl3G.vertices.forEach(vertex => {
+                        p.vertex(vertex.x, vertex.y);
+                    })
+                    p.endShape(p.CLOSE);
+                });
+
+                engine.world.bodies.forEach(body => {
+                    p.beginShape()
+                    boxLvl3H.vertices.forEach(vertex => {
+                        p.vertex(vertex.x, vertex.y);
+                    })
+                    p.endShape(p.CLOSE);
+                });
+
+                engine.world.bodies.forEach(body => {
+                    p.beginShape()
+                    boxLvl3I.vertices.forEach(vertex => {
+                        p.vertex(vertex.x, vertex.y);
+                    })
+                    p.endShape(p.CLOSE);
+                });
+
+                engine.world.bodies.forEach(body => {
+                    p.beginShape()
+                    boxLvl3J.vertices.forEach(vertex => {
+                        p.vertex(vertex.x, vertex.y);
+                    })
+                    p.endShape(p.CLOSE);
+                });
+
+                p.fill('white');
+                p.textSize(50);
                 p.text('Level 3', 750, 50);
+                p.textSize(16);
+                p.text('Boxes everywhere', 750, 75);
             }
 
             if (level == 4) {
+                p.fill('#715428');
+                engine.world.bodies.forEach(body => {
+                    p.beginShape()
+                    boxLvl4.vertices.forEach(vertex => {
+                        p.vertex(vertex.x, vertex.y);
+                    })
+                    p.endShape(p.CLOSE);
+                });
+
+                p.fill('white');
                 p.textSize(50);
                 p.textAlign(p.CENTER);
                 p.text('Level 4', 750, 50);
+                p.textSize(16);
+                p.text("Think outside 'the box'", 750, 75);
             }
 
             if (level == 5) {
+                p.fill('#715428');
+
+                engine.world.bodies.forEach(body => {
+                    p.beginShape()
+                    boxLvl5A.vertices.forEach(vertex => {
+                        p.vertex(vertex.x, vertex.y);
+                    })
+                    p.endShape(p.CLOSE);
+                });
+
+                engine.world.bodies.forEach(body => {
+                    p.beginShape()
+                    boxLvl5B.vertices.forEach(vertex => {
+                        p.vertex(vertex.x, vertex.y);
+                    })
+                    p.endShape(p.CLOSE);
+                });
+
+                engine.world.bodies.forEach(body => {
+                    p.beginShape()
+                    boxLvl5C.vertices.forEach(vertex => {
+                        p.vertex(vertex.x, vertex.y);
+                    })
+                    p.endShape(p.CLOSE);
+                });
+
+                engine.world.bodies.forEach(body => {
+                    p.beginShape()
+                    boxLvl5D.vertices.forEach(vertex => {
+                        p.vertex(vertex.x, vertex.y);
+                    })
+                    p.endShape(p.CLOSE);
+                });
+
+                engine.world.bodies.forEach(body => {
+                    p.beginShape()
+                    boxLvl5E.vertices.forEach(vertex => {
+                        p.vertex(vertex.x, vertex.y);
+                    })
+                    p.endShape(p.CLOSE);
+                });
+
+                engine.world.bodies.forEach(body => {
+                    p.beginShape()
+                    boxLvl5F.vertices.forEach(vertex => {
+                        p.vertex(vertex.x, vertex.y);
+                    })
+                    p.endShape(p.CLOSE);
+                });
+
+                engine.world.bodies.forEach(body => {
+                    p.beginShape()
+                    boxLvl5G.vertices.forEach(vertex => {
+                        p.vertex(vertex.x, vertex.y);
+                    })
+                    p.endShape(p.CLOSE);
+                });
+
+                engine.world.bodies.forEach(body => {
+                    p.beginShape()
+                    boxLvl5H.vertices.forEach(vertex => {
+                        p.vertex(vertex.x, vertex.y);
+                    })
+                    p.endShape(p.CLOSE);
+                });
+
+                engine.world.bodies.forEach(body => {
+                    p.beginShape()
+                    boxLvl5I.vertices.forEach(vertex => {
+                        p.vertex(vertex.x, vertex.y);
+                    })
+                    p.endShape(p.CLOSE);
+                });
+
+                engine.world.bodies.forEach(body => {
+                    p.beginShape()
+                    boxLvl5J.vertices.forEach(vertex => {
+                        p.vertex(vertex.x, vertex.y);
+                    })
+                    p.endShape(p.CLOSE);
+                });
+
+                engine.world.bodies.forEach(body => {
+                    p.beginShape()
+                    boxLvl5K.vertices.forEach(vertex => {
+                        p.vertex(vertex.x, vertex.y);
+                    })
+                    p.endShape(p.CLOSE);
+                });
+
+                p.fill('white');
                 p.textSize(50);
                 p.textAlign(p.CENTER);
                 p.text('Level 5', 750, 50);
+                p.textSize(16);
+                p.text("'The Staircase'", 750, 75);
             }
 
             // Draw BallA
@@ -352,7 +693,6 @@ let sketch = function (p: p5) {
                 levelC = true;
             }
             if (levelC == true) {
-                p.text('Level Completed!', 750, 200);
                 screen = 'levelCS';
             }
 
@@ -370,7 +710,6 @@ let sketch = function (p: p5) {
 
             // Display level failure text if the user has failed the level
             if (levelF == true) {
-                p.text('Level Failed!', 750, 200);
                 screen = 'levelFS';
             }
         }
@@ -415,26 +754,31 @@ let sketch = function (p: p5) {
             if (p.keyIsDown(49)) {
                 screen = 'level'
                 level = 1
+                reset();
             }
             p.text('2', 450, 265);
             if (p.keyIsDown(50)) {
                 screen = 'level'
                 level = 2
+                reset();
             }
             p.text('3', 750, 265);
             if (p.keyIsDown(51)) {
                 screen = 'level'
                 level = 3
+                reset();
             }
             p.text('4', 1050, 265);
             if (p.keyIsDown(52)) {
                 screen = 'level'
                 level = 4
+                reset();
             }
             p.text('5', 1350, 265);
             if (p.keyIsDown(53)) {
                 screen = 'level'
                 level = 5
+                reset();
             }
         }
 
@@ -444,7 +788,6 @@ let sketch = function (p: p5) {
             shot = false;
             levelC = false;
             levelF = false;
-            reset();
             p.background('green');
             p.textSize(100);
             p.textAlign(p.CENTER);
@@ -458,6 +801,7 @@ let sketch = function (p: p5) {
             }
             if (p.keyIsDown(82)) {
                 screen = 'level'
+                reset();
             }
         }
 
@@ -467,7 +811,6 @@ let sketch = function (p: p5) {
             shot = false;
             levelC = false;
             levelF = false;
-            reset();
             p.background('red');
             p.textSize(100);
             p.textAlign(p.CENTER);
@@ -481,16 +824,16 @@ let sketch = function (p: p5) {
             }
             if (p.keyIsDown(82)) {
                 screen = 'level'
+                reset();
             }
         }
 
         function reset() {
             engine = Engine.create();
             ballA = Bodies.circle(200, 675, 25, { restitution: 1 });
-            boxA = Bodies.rectangle(750, 350, 75, 75, { isStatic: true });
             ground = Bodies.rectangle(400, 700, 10000, 60, { isStatic: true });
-            borderA = Bodies.rectangle(-5, 350, 10, 10000, { isStatic: true });
-            borderB = Bodies.rectangle(1505, 350, 10, 10000, { isStatic: true });
+            borderA = Bodies.rectangle(-500, 350, 1000, 10000, { isStatic: true });
+            borderB = Bodies.rectangle(2000, 350, 1000, 10000, { isStatic: true });
             hoopPole = Bodies.rectangle(1400, 475, 25, 390, { isStatic: true });
             hoopPole.collisionFilter = { 'group': -1 };
             hoopBackboard = Bodies.rectangle(1400, 200, 30, 200, { isStatic: true });
@@ -502,11 +845,65 @@ let sketch = function (p: p5) {
             netA = Bodies.rectangle(1381.5, 310, 3, 60, { isStatic: true });
             netB = Bodies.rectangle(1288.5, 310, 3, 60, { isStatic: true });
     
-            World.add(engine.world, [ballA, boxA, ground, borderA, borderB, hoopPole, hoopBackboard, hoopPaint, rimCollisionR, rimCollisionL, hoopRim, netA, netB]);
+            World.add(engine.world, [ballA, ground, borderA, borderB, hoopPole, hoopBackboard, hoopPaint, rimCollisionR, rimCollisionL, hoopRim, netA, netB]);
     
             engine.world.gravity.y = 3;
     
             p.textSize(16);
+
+            if (level == 1) {
+                boxLvl1 = Bodies.rectangle(750, 350, 75, 75, { isStatic: true });
+    
+                World.add(engine.world, [boxLvl1]);
+            }
+
+            if (level == 2) {
+                boxLvl2A = Bodies.rectangle(1110, 25, 550, 50, { isStatic: true });
+                boxLvl2B = Bodies.rectangle(950, 175, 100, 50, { isStatic: true });
+                boxLvl2C = Bodies.rectangle(1075, 225, 100, 50, { isStatic: true });
+                boxLvl2D = Bodies.rectangle(1200, 275, 100, 50, { isStatic: true });
+
+                World.add(engine.world, [boxLvl2A, boxLvl2B, boxLvl2C, boxLvl2D])
+            }
+    
+            if (level == 3) {
+                boxLvl3A = Bodies.rectangle(750, 660, 50, 20, { isStatic: true });
+                boxLvl3B = Bodies.rectangle(750, 525, 50, 250);
+                boxLvl3C = Bodies.rectangle(200, 300, 100, 100, { isStatic: true });
+                boxLvl3D = Bodies.rectangle(1100, 400, 100, 100, { isStatic: true });
+                boxLvl3E = Bodies.rectangle(900, 250, 100, 100, { isStatic: true });
+                boxLvl3E.collisionFilter = { 'group': -1 };
+                boxLvl3F = Bodies.rectangle(400, 645, 100, 50, { isStatic: true });
+                boxLvl3G = Bodies.rectangle(600, 200, 100, 100, { isStatic: true });
+                boxLvl3H = Bodies.rectangle(1300, 200, 100, 100, { isStatic: true });
+                boxLvl3H.collisionFilter = { 'group': -1 };
+                boxLvl3I = Bodies.rectangle(300, 100, 100, 100, { isStatic: true });
+                boxLvl3J = Bodies.rectangle(1450, 645, 50, 50);
+    
+                World.add(engine.world, [boxLvl3A, boxLvl3B, boxLvl3C, boxLvl3D, boxLvl3E, boxLvl3F, boxLvl3G, boxLvl3H, boxLvl3I, boxLvl3J]);
+            }
+    
+            if (level == 4) {
+                boxLvl4 = Bodies.rectangle(750, 350, 300, 700, { isStatic: true });
+    
+                World.add(engine.world, [boxLvl4]);
+            }
+
+            if (level == 5) {
+                boxLvl5A = Bodies.rectangle(500, 620, 200, 100, { isStatic: true });
+                boxLvl5B = Bodies.rectangle(700, 520, 200, 100, { isStatic: true });
+                boxLvl5C = Bodies.rectangle(900, 420, 200, 100, { isStatic: true });
+                boxLvl5D = Bodies.rectangle(1100, 320, 200, 100, { isStatic: true });
+                boxLvl5E = Bodies.rectangle(100, 550, 200, 100, { isStatic: true });
+                boxLvl5F = Bodies.rectangle(300, 450, 200, 100, { isStatic: true });
+                boxLvl5G = Bodies.rectangle(500, 350, 200, 100, { isStatic: true });
+                boxLvl5H = Bodies.rectangle(700, 250, 200, 100, { isStatic: true });
+                boxLvl5I = Bodies.rectangle(900, 150, 200, 100, { isStatic: true });
+                boxLvl5J = Bodies.rectangle(1100, 75, 200, 50, { isStatic: true });
+                boxLvl5K = Bodies.rectangle(1350, 25, 300, 50, { isStatic: true });
+
+                World.add(engine.world, [boxLvl5A, boxLvl5B, boxLvl5C, boxLvl5D, boxLvl5E, boxLvl5F, boxLvl5G, boxLvl5H, boxLvl5I, boxLvl5J, boxLvl5K])
+            }
         }
     };
 };
