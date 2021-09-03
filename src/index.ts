@@ -213,8 +213,6 @@ let sketch = function (p: p5) {
                     p.endShape(p.CLOSE);
                 });
 
-                p.fill('#715428');
-
                 engine.world.bodies.forEach(body => {
                     p.beginShape()
                     boxLvl2B.vertices.forEach(vertex => {
@@ -223,8 +221,6 @@ let sketch = function (p: p5) {
                     p.endShape(p.CLOSE);
                 });
 
-                p.fill('#715428');
-
                 engine.world.bodies.forEach(body => {
                     p.beginShape()
                     boxLvl2C.vertices.forEach(vertex => {
@@ -232,8 +228,6 @@ let sketch = function (p: p5) {
                     })
                     p.endShape(p.CLOSE);
                 });
-
-                p.fill('#715428');
 
                 engine.world.bodies.forEach(body => {
                     p.beginShape()
