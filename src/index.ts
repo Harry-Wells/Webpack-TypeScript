@@ -3,8 +3,8 @@ import p5 from 'p5';
 
 import * as Matter from 'matter-js';
 
-let screen = 'level';
-let level = 2;
+let screen = 'home';
+let level = 0;
 
 let height = 0;
 let power = 0;
