@@ -199,7 +199,7 @@ let sketch = function (p: p5) {
                 p.textAlign(p.CENTER);
                 p.text('Level 1', 750, 50);
                 p.textSize(16);
-                p.text("As simple as it'll get", 750, 75);
+                p.text("One Box, One Basket", 750, 75);
             }
 
             if (level == 2) {
@@ -348,6 +348,7 @@ let sketch = function (p: p5) {
 
             if (level == 4) {
                 p.fill('#715428');
+                
                 engine.world.bodies.forEach(body => {
                     p.beginShape()
                     boxLvl4.vertices.forEach(vertex => {
@@ -715,12 +716,18 @@ let sketch = function (p: p5) {
             levelC = false;
             levelF = false;
             p.background('black');
+            p.fill('purple');
+            p.rect(550, 160, 400, 200);
+            p.rect(550, 400, 400, 200);
+            p.rect(100, 400, 400, 200);
+            p.rect(1000, 400, 400, 200);
             p.fill('white');
             p.textSize(75);
             p.textAlign(p.CENTER);
-            p.text('Title', 750, 100);
-            p.textSize(25);
-            p.text('Press Enter to continue to level selection', 750, 300);
+            p.text('Basket Bounce', 750, 100);
+            p.textSize(50);
+            p.text('Level Selection', 750, 250);
+            p.text('[Enter]', 750, 300);
             if (p.keyIsDown(p.ENTER)) {
                 screen = 'levelSel'
             }
@@ -735,7 +742,7 @@ let sketch = function (p: p5) {
             p.textAlign(p.CENTER);
             p.text('Level Selection', 750, 100);
             p.textSize(25);
-            p.text('Press the number on your keyboard corresponding to the level that you would like to play', 750, 600);
+            p.text('Press the number on your keyboard corresponding to the level that you would like to play', 750, 625);
             p.textSize(50);
             p.fill('purple');
             p.rect(100, 200, 100, 100);
@@ -743,6 +750,11 @@ let sketch = function (p: p5) {
             p.rect(700, 200, 100, 100);
             p.rect(1000, 200, 100, 100);
             p.rect(1300, 200, 100, 100);
+            p.rect(100, 400, 100, 100);
+            p.rect(400, 400, 100, 100);
+            p.rect(700, 400, 100, 100);
+            p.rect(1000, 400, 100, 100);
+            p.rect(1300, 400, 100, 100);
             p.fill('white');
             p.text('1', 150, 265);
             if (p.keyIsDown(49)) {
@@ -774,6 +786,12 @@ let sketch = function (p: p5) {
                 level = 5
                 reset();
             }
+            p.textSize(25);
+            p.text('New', 150, 460);
+            p.text('Levels', 450, 460);
+            p.text('Coming', 750, 460);
+            p.text('Soon', 1050, 460);
+            p.text('(Maybe)', 1350, 460);
         }
 
         if (screen == 'levelCS') {
@@ -785,13 +803,20 @@ let sketch = function (p: p5) {
             p.background('green');
             p.textSize(100);
             p.textAlign(p.CENTER);
-            p.text('Level Completed!', 750, 200);
+            p.text('Level Completed!', 750, 150);
             p.fill('white');
-            p.textSize(25);
-            p.text('Press H to go home', 750, 300);
-            p.text('Press R to restart level', 750, 400);
+            p.textSize(50);
+            p.text('Home', 750, 250);
+            p.text('[H]', 750, 300);
+            p.text('Level Selection', 750, 400);
+            p.text('[L]', 750, 450);
+            p.text('Restart Level', 750, 550);
+            p.text('[R]', 750, 600);
             if (p.keyIsDown(72)) {
                 screen = 'home'
+            }
+            if (p.keyIsDown(76)) {
+                screen = 'levelSel'
             }
             if (p.keyIsDown(82)) {
                 screen = 'level'
@@ -808,13 +833,20 @@ let sketch = function (p: p5) {
             p.background('red');
             p.textSize(100);
             p.textAlign(p.CENTER);
-            p.text('Level Failed!', 750, 200);
+            p.text('Level Failed!', 750, 150);
             p.fill('white');
-            p.textSize(25);
-            p.text('Press H to go home', 750, 300);
-            p.text('Press R to restart level', 750, 400);
+            p.textSize(50);
+            p.text('Home', 750, 250);
+            p.text('[H]', 750, 300);
+            p.text('Level Selection', 750, 400);
+            p.text('[L]', 750, 450);
+            p.text('Restart Level', 750, 550);
+            p.text('[R]', 750, 600);
             if (p.keyIsDown(72)) {
                 screen = 'home'
+            }
+            if (p.keyIsDown(76)) {
+                screen = 'levelSel'
             }
             if (p.keyIsDown(82)) {
                 screen = 'level'
