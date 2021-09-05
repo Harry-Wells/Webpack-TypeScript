@@ -9,6 +9,10 @@ let level = 0;
 let height = 0;
 let power = 0;
 
+let shotsTaken = 0;
+let shotsMade = 0;
+let shotsMissed = 0;
+
 var shot = false;
 var levelC = false;
 var levelF = false;
@@ -679,6 +683,7 @@ let sketch = function (p: p5) {
                     height = 0;
                     power = 0;
                     shot = true;
+                    shotsTaken = shotsTaken + 1;
                 }
             }
 
@@ -686,6 +691,7 @@ let sketch = function (p: p5) {
             var distBallA = p.dist(ballA.position.x, ballA.position.y, 1335, 310);
             if (distBallA < 25) {
                 levelC = true;
+                shotsMade = shotsMade + 1;
             }
             if (levelC == true) {
                 screen = 'levelCS';
@@ -695,6 +701,7 @@ let sketch = function (p: p5) {
             if (shot == true) {
                 if (ballA.velocity.x < 0.005 && ballA.velocity.x > -0.005 && ballA.velocity.y < 0.005 && ballA.velocity.y > -0.005) {
                     levelF = true;
+                    shotsMissed = shotsMissed + 1;
                 }         
             }
 
@@ -717,19 +724,50 @@ let sketch = function (p: p5) {
             levelF = false;
             p.background('black');
             p.fill('purple');
-            p.rect(550, 160, 400, 200);
-            p.rect(550, 400, 400, 200);
+            p.rect(550, 150, 400, 200);
             p.rect(100, 400, 400, 200);
+            p.rect(550, 400, 400, 200);
             p.rect(1000, 400, 400, 200);
             p.fill('white');
             p.textSize(75);
             p.textAlign(p.CENTER);
             p.text('Basket Bounce', 750, 100);
             p.textSize(50);
-            p.text('Level Selection', 750, 250);
-            p.text('[Enter]', 750, 300);
+            p.text('Level Selection', 750, 240);
+            p.text('[Enter]', 750, 290);
+            p.text('View Stats', 300, 490);
+            p.text('[S]', 300, 540);
             if (p.keyIsDown(p.ENTER)) {
                 screen = 'levelSel'
+            }
+            if (p.keyIsDown(83)) {
+                screen = 'stats'
+            }
+        }
+
+        if (screen == 'stats') {
+            p.background('black');
+            p.fill('brown');
+            p.rect(100, 200, 400, 200);
+            p.rect(550, 200, 400, 200);
+            p.rect(1000, 200, 400, 200);
+            p.fill('purple');
+            p.rect(550, 450, 400, 200);
+            p.fill('white');
+            p.textSize(75);
+            p.textAlign(p.CENTER);
+            p.text('Session Stats', 750, 100);
+            p.textSize(50);
+            p.text('Shots Taken', 300, 275);
+            p.text(shotsTaken, 300, 350);
+            p.text('Shots Made', 750, 275);
+            p.text(shotsMade, 750, 350);
+            p.text('Shots Missed', 1200, 275);
+            p.text(shotsMissed, 1200, 350);
+            p.text('Home', 750, 535);
+            p.text('[H]', 750, 585);
+            if (p.keyIsDown(72)) {
+                screen = 'home'
             }
         }
 
