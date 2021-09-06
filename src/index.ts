@@ -13,6 +13,24 @@ let shotsTaken = 0;
 let shotsMade = 0;
 let shotsMissed = 0;
 
+var level1Comp = false;
+var level2Comp = false;
+var level3Comp = false;
+var level4Comp = false;
+var level5Comp = false;
+
+var level1Pop = false;
+var level2Pop = false;
+var level3Pop = false;
+var level4Pop = false;
+var level5Pop = false;
+
+var level1PopCheck = false;
+var level2PopCheck = false;
+var level3PopCheck = false;
+var level4PopCheck = false;
+var level5PopCheck = false;
+
 var shot = false;
 var levelC = false;
 var levelF = false;
@@ -692,6 +710,26 @@ let sketch = function (p: p5) {
             if (distBallA < 25) {
                 levelC = true;
                 shotsMade = shotsMade + 1;
+                if (level == 1) {
+                    level1Comp = true;
+                    level1Pop = true;
+                }
+                if (level == 2) {
+                    level2Comp = true;
+                    level2Pop = true;
+                }
+                if (level == 3) {
+                    level3Comp = true;
+                    level3Pop = true;
+                }
+                if (level == 4) {
+                    level4Comp = true;
+                    level4Pop = true;
+                }
+                if (level == 5) {
+                    level5Comp = true;
+                    level4Pop = true;
+                }
             }
             if (levelC == true) {
                 screen = 'levelCS';
@@ -737,11 +775,16 @@ let sketch = function (p: p5) {
             p.text('[Enter]', 750, 290);
             p.text('View Stats', 300, 490);
             p.text('[S]', 300, 540);
+            p.text('Achievements', 1200, 490);
+            p.text('[A]', 1200, 540);
             if (p.keyIsDown(p.ENTER)) {
                 screen = 'levelSel'
             }
             if (p.keyIsDown(83)) {
                 screen = 'stats'
+            }
+            if (p.keyIsDown(65)) {
+                screen = 'achievement'
             }
         }
 
@@ -766,6 +809,63 @@ let sketch = function (p: p5) {
             p.text(shotsMissed, 1200, 350);
             p.text('Home', 750, 535);
             p.text('[H]', 750, 585);
+            if (p.keyIsDown(72)) {
+                screen = 'home'
+            }
+        }
+
+        if (screen == 'achievement') {
+            p.background('black');
+            p.fill('purple');
+            p.rect(550, 475, 400, 200);
+            if (level1Comp == false) {
+                p.fill('red');
+            }
+            if (level1Comp == true) {
+                p.fill('green');
+            }
+            p.rect(550, 150, 400, 50);
+            if (level2Comp == false) {
+                p.fill('red');
+            }
+            if (level2Comp == true) {
+                p.fill('green');
+            }
+            p.rect(550, 210, 400, 50);
+            if (level3Comp == false) {
+                p.fill('red');
+            }
+            if (level3Comp == true) {
+                p.fill('green');
+            }
+            p.rect(550, 270, 400, 50);
+            if (level4Comp == false) {
+                p.fill('red');
+            }
+            if (level4Comp == true) {
+                p.fill('green');
+            }
+            p.rect(550, 330, 400, 50);
+            if (level5Comp == false) {
+                p.fill('red');
+            }
+            if (level5Comp == true) {
+                p.fill('green');
+            }
+            p.rect(550, 390, 400, 50);
+            p.fill('white');
+            p.textSize(75);
+            p.textAlign(p.CENTER)
+            p.text('Achievements', 750, 100);
+            p.textSize(25);
+            p.text('Complete Level 1', 750, 182);
+            p.text('Complete Level 2', 750, 242);
+            p.text('Complete Level 3', 750, 302);
+            p.text('Complete Level 4', 750, 362);
+            p.text('Complete Level 5', 750, 422);
+            p.textSize(50);
+            p.text('Home', 750, 560);
+            p.text('[H]', 750, 610);
             if (p.keyIsDown(72)) {
                 screen = 'home'
             }
@@ -889,6 +989,81 @@ let sketch = function (p: p5) {
             if (p.keyIsDown(82)) {
                 screen = 'level'
                 reset();
+            }
+        }
+
+        if (level1PopCheck == false) {
+            if (level1Pop == true) {
+                p.fill('brown');
+                p.rect(25, 25, 300, 100);
+                p.fill('white');
+                p.textAlign(p.CENTER);
+                p.textSize(25);
+                p.text('Achievement Complete', 175, 65);
+                p.text('Complete Level 1', 175, 100);
+                if (screen !== 'levelCS') {
+                    level1PopCheck = true;
+                }
+            }
+        }
+
+        if (level2PopCheck == false) {
+            if (level2Pop == true) {
+                p.fill('brown');
+                p.rect(25, 25, 300, 100);
+                p.fill('white');
+                p.textAlign(p.CENTER);
+                p.textSize(25);
+                p.text('Achievement Complete', 175, 65);
+                p.text('Complete Level 2', 175, 100);
+                if (screen !== 'levelCS') {
+                    level2PopCheck = true;
+                }
+            }
+        }
+
+        if (level3PopCheck == false) {
+            if (level3Pop == true) {
+                p.fill('brown');
+                p.rect(25, 25, 300, 100);
+                p.fill('white');
+                p.textAlign(p.CENTER);
+                p.textSize(25);
+                p.text('Achievement Complete', 175, 65);
+                p.text('Complete Level 3', 175, 100);
+                if (screen !== 'levelCS') {
+                    level3PopCheck = true;
+                }
+            }
+        }
+
+        if (level4PopCheck == false) {
+            if (level4Pop == true) {
+                p.fill('brown');
+                p.rect(25, 25, 300, 100);
+                p.fill('white');
+                p.textAlign(p.CENTER);
+                p.textSize(25);
+                p.text('Achievement Complete', 175, 65);
+                p.text('Complete Level 4', 175, 100);
+                if (screen !== 'levelCS') {
+                    level4PopCheck = true;
+                }
+            }
+        }
+
+        if (level5PopCheck == false) {
+            if (level5Pop == true) {
+                p.fill('brown');
+                p.rect(25, 25, 300, 100);
+                p.fill('white');
+                p.textAlign(p.CENTER);
+                p.textSize(25);
+                p.text('Achievement Complete', 175, 65);
+                p.text('Complete Level 5', 175, 100);
+                if (screen !== 'levelCS') {
+                    level5PopCheck = true;
+                }
             }
         }
 
