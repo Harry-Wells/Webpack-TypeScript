@@ -52,7 +52,7 @@ let sketch = function (p: p5) {
     var rimCollisionR: Matter.Body;
     var rimCollisionL: Matter.Body;
     var netA: Matter.Body;
-    var netB : Matter.Body;
+    var netB: Matter.Body;
     var boxLvl1: Matter.Body;
     var boxLvl2A: Matter.Body;
     var boxLvl2B: Matter.Body;
@@ -152,7 +152,7 @@ let sketch = function (p: p5) {
                 boxLvl3E = Bodies.rectangle(900, 250, 100, 100, { isStatic: true });
                 boxLvl3E.collisionFilter = { 'group': -1 };
                 boxLvl3F = Bodies.rectangle(400, 645, 100, 50, { isStatic: true });
-                boxLvl3G = Bodies.rectangle(600, 200, 100, 100, { isStatic: true });
+                boxLvl3G = Bodies.rectangle(600, 150, 100, 100, { isStatic: true });
                 boxLvl3H = Bodies.rectangle(1300, 200, 100, 100, { isStatic: true });
                 boxLvl3H.collisionFilter = { 'group': -1 };
                 boxLvl3I = Bodies.rectangle(300, 100, 100, 100, { isStatic: true });
@@ -193,6 +193,37 @@ let sketch = function (p: p5) {
             p.background('blue');
             p.textSize(16);
 
+            if (level == 0) {
+                p.fill('white');
+                p.textAlign(p.CENTER);
+                p.textSize(50);
+                p.text('Practice Level', 750, 50);
+                p.textSize(16);
+                p.text('A base level to practice shots', 750, 75);
+                p.textAlign(p.LEFT);
+                p.text('Controls:', 5, 25);
+                p.text('Increase Height - W or Up Arrow', 5, 50);
+                p.text('Decrease Height - S or Down Arrow', 5, 75);
+                p.text('Increase Power - D or Right Arrow', 5, 100);
+                p.text('Decrease Power - A or Left Arrow', 5, 125);
+                p.text('Take Shot - Enter', 5, 150);
+                p.text('Home - H', 5, 175);
+                p.text('Restart Level - R', 5, 200);
+                if (p.keyIsDown(72)) {
+                    screen = 'home'
+                }
+                if (screen == 'levelCS') {
+                    shotsMade = shotsMade - 1;
+                    reset();
+                    screen = 'level';
+                }
+                if (screen == 'levelFS') {
+                    shotsMissed = shotsMissed - 1;
+                    reset();
+                    screen = 'level';
+                }
+            }
+
             if (level == 1) {
                 // Draw BoxLvl1
                 p.fill('#715428');
@@ -216,6 +247,8 @@ let sketch = function (p: p5) {
                 p.text('Increase Power - D or Right Arrow', 5, 100);
                 p.text('Decrease Power - A or Left Arrow', 5, 125);
                 p.text('Take Shot - Enter', 5, 150);
+                p.text('Home - H', 5, 175);
+                p.text('Restart Level - R', 5, 200);
 
                 p.textSize(50);
                 p.textAlign(p.CENTER);
@@ -698,11 +731,19 @@ let sketch = function (p: p5) {
                 if (p.keyIsDown(p.ENTER)) {
                     Matter.Body.applyForce(ballA, ballA.position, { x: 0, y: -(height * 0.008) });
                     Matter.Body.applyForce(ballA, ballA.position, { x: power * 0.008, y: 0 });
-                    height = 0;
-                    power = 0;
                     shot = true;
                     shotsTaken = shotsTaken + 1;
+                    if (level == 0) {
+                        shotsTaken = shotsTaken - 1;
+                    }
                 }
+            }
+
+            if (p.keyIsDown(72)) {
+                screen = 'home'
+            }
+            if (p.keyIsDown(82)) {
+                reset();
             }
 
             // Check if the ball has landed in the basket
@@ -728,7 +769,7 @@ let sketch = function (p: p5) {
                 }
                 if (level == 5) {
                     level5Comp = true;
-                    level4Pop = true;
+                    level5Pop = true;
                 }
             }
             if (levelC == true) {
@@ -772,12 +813,14 @@ let sketch = function (p: p5) {
             p.text('Basket Bounce', 750, 100);
             p.textSize(50);
             p.text('Level Selection', 750, 240);
-            p.text('[Enter]', 750, 290);
+            p.text('[L]', 750, 290);
             p.text('View Stats', 300, 490);
             p.text('[S]', 300, 540);
             p.text('Achievements', 1200, 490);
             p.text('[A]', 1200, 540);
-            if (p.keyIsDown(p.ENTER)) {
+            p.text('Practice Level', 750, 490);
+            p.text('[P]', 750, 540);
+            if (p.keyIsDown(76)) {
                 screen = 'levelSel'
             }
             if (p.keyIsDown(83)) {
@@ -785,6 +828,10 @@ let sketch = function (p: p5) {
             }
             if (p.keyIsDown(65)) {
                 screen = 'achievement'
+            }
+            if (p.keyIsDown(80)) {
+                screen = 'level'
+                level = 0
             }
         }
 
@@ -893,6 +940,7 @@ let sketch = function (p: p5) {
             p.rect(700, 400, 100, 100);
             p.rect(1000, 400, 100, 100);
             p.rect(1300, 400, 100, 100);
+            p.rect(150, 25, 200, 125);
             p.fill('white');
             p.text('1', 150, 265);
             if (p.keyIsDown(49)) {
@@ -930,6 +978,12 @@ let sketch = function (p: p5) {
             p.text('Coming', 750, 460);
             p.text('Soon', 1050, 460);
             p.text('(Maybe)', 1350, 460);
+            p.textSize(50);
+            p.text('Home', 250, 75);
+            p.text('[H]', 250, 125);
+            if (p.keyIsDown(72)) {
+                screen = 'home'
+            }
         }
 
         if (screen == 'levelCS') {
@@ -960,6 +1014,11 @@ let sketch = function (p: p5) {
                 screen = 'level'
                 reset();
             }
+            if (level == 0) {
+                shotsMade = shotsMade - 1;
+                screen = 'level';
+                reset();
+            }
         }
 
         if (screen == 'levelFS') {
@@ -987,6 +1046,11 @@ let sketch = function (p: p5) {
                 screen = 'levelSel'
             }
             if (p.keyIsDown(82)) {
+                screen = 'level';
+                reset();
+            }
+            if (level == 0) {
+                shotsMissed = shotsMissed - 1;
                 screen = 'level'
                 reset();
             }
@@ -1113,7 +1177,7 @@ let sketch = function (p: p5) {
                 boxLvl3E = Bodies.rectangle(900, 250, 100, 100, { isStatic: true });
                 boxLvl3E.collisionFilter = { 'group': -1 };
                 boxLvl3F = Bodies.rectangle(400, 645, 100, 50, { isStatic: true });
-                boxLvl3G = Bodies.rectangle(600, 200, 100, 100, { isStatic: true });
+                boxLvl3G = Bodies.rectangle(600, 150, 100, 100, { isStatic: true });
                 boxLvl3H = Bodies.rectangle(1300, 200, 100, 100, { isStatic: true });
                 boxLvl3H.collisionFilter = { 'group': -1 };
                 boxLvl3I = Bodies.rectangle(300, 100, 100, 100, { isStatic: true });
