@@ -920,8 +920,6 @@ let sketch = function (p: p5) {
 
         if (screen == 'levelSel') {
             p.background('black');
-            p.fill('purple');
-            p.rect(100, 200, 100, 100);
             p.fill('white');
             p.textSize(75);
             p.textAlign(p.CENTER);
@@ -929,55 +927,84 @@ let sketch = function (p: p5) {
             p.textSize(25);
             p.text('Press the number on your keyboard corresponding to the level that you would like to play', 750, 625);
             p.textSize(50);
+            p.fill('blue');
+            if (level1Comp == true) {
+                p.fill('green');
+            }
+            p.rect(100, 325, 100, 100);
+            p.fill('red');
+            if (level1Comp == true) {
+                p.fill('blue');
+            }
+            if (level2Comp == true) {
+                p.fill('green');
+            }
+            p.rect(400, 325, 100, 100);
+            p.fill('red');
+            if (level2Comp == true) {
+                p.fill('blue');
+            }
+            if (level3Comp == true) {
+                p.fill('green');
+            }
+            p.rect(700, 325, 100, 100);
+            p.fill('red');
+            if (level3Comp == true) {
+                p.fill('blue');
+            }
+            if (level4Comp == true) {
+                p.fill('green');
+            }
+            p.rect(1000, 325, 100, 100);
+            p.fill('red');
+            if (level4Comp == true) {
+                p.fill('blue');
+            }
+            if (level5Comp == true) {
+                p.fill('green');
+            }
+            p.rect(1300, 325, 100, 100);
             p.fill('purple');
-            p.rect(100, 200, 100, 100);
-            p.rect(400, 200, 100, 100);
-            p.rect(700, 200, 100, 100);
-            p.rect(1000, 200, 100, 100);
-            p.rect(1300, 200, 100, 100);
-            p.rect(100, 400, 100, 100);
-            p.rect(400, 400, 100, 100);
-            p.rect(700, 400, 100, 100);
-            p.rect(1000, 400, 100, 100);
-            p.rect(1300, 400, 100, 100);
             p.rect(150, 25, 200, 125);
             p.fill('white');
-            p.text('1', 150, 265);
+            p.text('1', 150, 390);
             if (p.keyIsDown(49)) {
                 screen = 'level'
                 level = 1
                 reset();
             }
-            p.text('2', 450, 265);
-            if (p.keyIsDown(50)) {
-                screen = 'level'
-                level = 2
-                reset();
+            p.text('2', 450, 390);
+            if (level1Comp == true) {
+                if (p.keyIsDown(50)) {
+                    screen = 'level'
+                    level = 2
+                    reset();
+                }
             }
-            p.text('3', 750, 265);
-            if (p.keyIsDown(51)) {
-                screen = 'level'
-                level = 3
-                reset();
+            p.text('3', 750, 390);
+            if (level2Comp == true) {
+                if (p.keyIsDown(51)) {
+                    screen = 'level'
+                    level = 3
+                    reset();
+                }
             }
-            p.text('4', 1050, 265);
-            if (p.keyIsDown(52)) {
-                screen = 'level'
-                level = 4
-                reset();
+            p.text('4', 1050, 390);
+            if (level3Comp == true) {
+                if (p.keyIsDown(52)) {
+                    screen = 'level'
+                    level = 4
+                    reset();
+                }
             }
-            p.text('5', 1350, 265);
-            if (p.keyIsDown(53)) {
-                screen = 'level'
-                level = 5
-                reset();
+            p.text('5', 1350, 390);
+            if (level4Comp == true) {
+                if (p.keyIsDown(53)) {
+                    screen = 'level'
+                    level = 5
+                    reset();
+                }
             }
-            p.textSize(25);
-            p.text('New', 150, 460);
-            p.text('Levels', 450, 460);
-            p.text('Coming', 750, 460);
-            p.text('Soon', 1050, 460);
-            p.text('(Maybe)', 1350, 460);
             p.textSize(50);
             p.text('Home', 250, 75);
             p.text('[H]', 250, 125);
