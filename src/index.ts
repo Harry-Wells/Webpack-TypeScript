@@ -43,43 +43,19 @@ let sketch = function (p: p5) {
     let engine: Matter.Engine;
     var ballA: Matter.Body;
     var ground: Matter.Body;
-    var borderA: Matter.Body;
-    var borderB: Matter.Body;
+    var borders: Matter.Body[];
     var hoopPole: Matter.Body;
     var hoopBackboard: Matter.Body;
     var hoopPaint: Matter.Body;
     var hoopRim: Matter.Body;
-    var rimCollisionR: Matter.Body;
-    var rimCollisionL: Matter.Body;
-    var netA: Matter.Body;
-    var netB: Matter.Body;
+    var rimCollisions: Matter.Body[];
+    var net: Matter.Body[];
     var boxLvl1: Matter.Body;
-    var boxLvl2A: Matter.Body;
-    var boxLvl2B: Matter.Body;
-    var boxLvl2C: Matter.Body;
-    var boxLvl2D: Matter.Body;
-    var boxLvl3A: Matter.Body;
-    var boxLvl3B: Matter.Body;
-    var boxLvl3C: Matter.Body;
-    var boxLvl3D: Matter.Body;
-    var boxLvl3E: Matter.Body;
-    var boxLvl3F: Matter.Body;
-    var boxLvl3G: Matter.Body;
-    var boxLvl3H: Matter.Body;
-    var boxLvl3I: Matter.Body;
-    var boxLvl3J: Matter.Body;
+    var boxLvl2: Matter.Body[];
+    var boxLvl3: Matter.Body[];
+    var boxLvl3NoCollision: Matter.Body[];
     var boxLvl4: Matter.Body;
-    var boxLvl5A: Matter.Body;
-    var boxLvl5B: Matter.Body;
-    var boxLvl5C: Matter.Body;
-    var boxLvl5D: Matter.Body;
-    var boxLvl5E: Matter.Body;
-    var boxLvl5F: Matter.Body;
-    var boxLvl5G: Matter.Body;
-    var boxLvl5H: Matter.Body;
-    var boxLvl5I: Matter.Body;
-    var boxLvl5J: Matter.Body;
-    var boxLvl5K: Matter.Body;
+    var boxLvl5: Matter.Body[];
 
     p.setup = function () {
         p.createCanvas(1500, 700);
@@ -87,20 +63,23 @@ let sketch = function (p: p5) {
         engine = Engine.create();
         ballA = Bodies.circle(200, 675, 25, { restitution: 1 });
         ground = Bodies.rectangle(400, 700, 10000, 60, { isStatic: true });
-        borderA = Bodies.rectangle(-5, 350, 10, 10000, { isStatic: true });
-        borderB = Bodies.rectangle(1505, 350, 10, 10000, { isStatic: true });
+        borders = []
+        borders.push(Bodies.rectangle(-5, 350, 10, 10000, { isStatic: true }));
+        borders.push(Bodies.rectangle(1505, 350, 10, 10000, { isStatic: true }));
         hoopPole = Bodies.rectangle(1400, 475, 25, 390, { isStatic: true });
         hoopPole.collisionFilter = { 'group': -1 };
         hoopBackboard = Bodies.rectangle(1400, 200, 30, 200, { isStatic: true });
         hoopPaint = Bodies.rectangle(1390, 250, 10, 100, { isStatic: true });
-        rimCollisionR = Bodies.rectangle(1375, 275, 20, 10, { isStatic: true });
-        rimCollisionL = Bodies.rectangle(1290, 275, 10, 10, { isStatic: true });
+        rimCollisions = []
+        rimCollisions.push(Bodies.rectangle(1375, 275, 20, 10, { isStatic: true }));
+        rimCollisions.push(Bodies.rectangle(1290, 275, 10, 10, { isStatic: true }));
         hoopRim = Bodies.rectangle(1335, 275, 100, 10, { isStatic: true });
         hoopRim.collisionFilter = { 'group': -1 };
-        netA = Bodies.rectangle(1381.5, 310, 3, 60, { isStatic: true });
-        netB = Bodies.rectangle(1288.5, 310, 3, 60, { isStatic: true });
+        net = []
+        net.push(Bodies.rectangle(1381.5, 310, 3, 60, { isStatic: true }));
+        net.push(Bodies.rectangle(1288.5, 310, 3, 60, { isStatic: true }));
 
-        World.add(engine.world, [ballA, ground, borderA, borderB, hoopPole, hoopBackboard, hoopPaint, rimCollisionR, rimCollisionL, hoopRim, netA, netB]);
+        World.add(engine.world, [ballA, ground, hoopPole, hoopBackboard, hoopPaint, hoopRim]);
 
         engine.world.gravity.y = 3;
 
@@ -110,20 +89,23 @@ let sketch = function (p: p5) {
             engine = Engine.create();
             ballA = Bodies.circle(200, 675, 25, { restitution: 1 });
             ground = Bodies.rectangle(400, 700, 10000, 60, { isStatic: true });
-            borderA = Bodies.rectangle(-500, 350, 1000, 10000, { isStatic: true });
-            borderB = Bodies.rectangle(2000, 350, 1000, 10000, { isStatic: true });
+            borders = []
+            borders.push(Bodies.rectangle(-500, 350, 1000, 10000, { isStatic: true }));
+            borders.push(Bodies.rectangle(2000, 350, 1000, 10000, { isStatic: true }));
             hoopPole = Bodies.rectangle(1400, 475, 25, 390, { isStatic: true });
             hoopPole.collisionFilter = { 'group': -1 };
             hoopBackboard = Bodies.rectangle(1400, 200, 30, 200, { isStatic: true });
             hoopPaint = Bodies.rectangle(1390, 250, 10, 100, { isStatic: true });
-            rimCollisionR = Bodies.rectangle(1375, 275, 20, 10, { isStatic: true });
-            rimCollisionL = Bodies.rectangle(1290, 275, 10, 10, { isStatic: true });
+            rimCollisions = []
+            rimCollisions.push(Bodies.rectangle(1375, 275, 20, 10, { isStatic: true }));
+            rimCollisions.push(Bodies.rectangle(1290, 275, 10, 10, { isStatic: true }));
             hoopRim = Bodies.rectangle(1335, 275, 100, 10, { isStatic: true });
             hoopRim.collisionFilter = { 'group': -1 };
-            netA = Bodies.rectangle(1381.5, 310, 3, 60, { isStatic: true });
-            netB = Bodies.rectangle(1288.5, 310, 3, 60, { isStatic: true });
+            net = []
+            net.push(Bodies.rectangle(1381.5, 310, 3, 60, { isStatic: true }));
+            net.push(Bodies.rectangle(1288.5, 310, 3, 60, { isStatic: true }));
 
-            World.add(engine.world, [ballA, ground, borderA, borderB, hoopPole, hoopBackboard, hoopPaint, rimCollisionR, rimCollisionL, hoopRim, netA, netB]);
+            World.add(engine.world, [ballA, ground, hoopPole, hoopBackboard, hoopPaint, hoopRim]);
 
             engine.world.gravity.y = 3;
 
@@ -136,29 +118,26 @@ let sketch = function (p: p5) {
             }
 
             if (level == 2) {
-                boxLvl2A = Bodies.rectangle(1110, 25, 550, 50, { isStatic: true });
-                boxLvl2B = Bodies.rectangle(950, 175, 100, 50, { isStatic: true });
-                boxLvl2C = Bodies.rectangle(1075, 225, 100, 50, { isStatic: true });
-                boxLvl2D = Bodies.rectangle(1200, 275, 100, 50, { isStatic: true });
-
-                World.add(engine.world, [boxLvl2A, boxLvl2B, boxLvl2C, boxLvl2D])
+                boxLvl2 = []
+                boxLvl2.push(Bodies.rectangle(1110, 25, 550, 50, { isStatic: true }));
+                boxLvl2.push(Bodies.rectangle(950, 175, 100, 50, { isStatic: true }));
+                boxLvl2.push(Bodies.rectangle(1075, 225, 100, 50, { isStatic: true }));
+                boxLvl2.push(Bodies.rectangle(1200, 275, 100, 50, { isStatic: true }));
             }
 
             if (level == 3) {
-                boxLvl3A = Bodies.rectangle(750, 660, 50, 20, { isStatic: true });
-                boxLvl3B = Bodies.rectangle(750, 525, 50, 250);
-                boxLvl3C = Bodies.rectangle(200, 300, 100, 100, { isStatic: true });
-                boxLvl3D = Bodies.rectangle(1100, 400, 100, 100, { isStatic: true });
-                boxLvl3E = Bodies.rectangle(900, 250, 100, 100, { isStatic: true });
-                boxLvl3E.collisionFilter = { 'group': -1 };
-                boxLvl3F = Bodies.rectangle(400, 645, 100, 50, { isStatic: true });
-                boxLvl3G = Bodies.rectangle(600, 150, 100, 100, { isStatic: true });
-                boxLvl3H = Bodies.rectangle(1300, 200, 100, 100, { isStatic: true });
-                boxLvl3H.collisionFilter = { 'group': -1 };
-                boxLvl3I = Bodies.rectangle(300, 100, 100, 100, { isStatic: true });
-                boxLvl3J = Bodies.rectangle(1450, 645, 50, 50);
-
-                World.add(engine.world, [boxLvl3A, boxLvl3B, boxLvl3C, boxLvl3D, boxLvl3E, boxLvl3F, boxLvl3G, boxLvl3H, boxLvl3I, boxLvl3J]);
+                boxLvl3 = []
+                boxLvl3.push(Bodies.rectangle(750, 660, 50, 20, { isStatic: true }));
+                boxLvl3.push(Bodies.rectangle(750, 525, 50, 250));
+                boxLvl3.push(Bodies.rectangle(200, 300, 100, 100, { isStatic: true }));
+                boxLvl3.push(Bodies.rectangle(1100, 400, 100, 100, { isStatic: true }));
+                boxLvl3.push(Bodies.rectangle(400, 645, 100, 50, { isStatic: true }));
+                boxLvl3.push(Bodies.rectangle(600, 150, 100, 100, { isStatic: true }));
+                boxLvl3.push(Bodies.rectangle(300, 100, 100, 100, { isStatic: true }));
+                boxLvl3.push(Bodies.rectangle(1450, 645, 50, 50));
+                boxLvl3NoCollision = []
+                boxLvl3NoCollision.push(Bodies.rectangle(900, 250, 100, 100, { isStatic: true }));
+                boxLvl3NoCollision.push(Bodies.rectangle(1300, 200, 100, 100, { isStatic: true }));
             }
 
             if (level == 4) {
@@ -168,19 +147,18 @@ let sketch = function (p: p5) {
             }
 
             if (level == 5) {
-                boxLvl5A = Bodies.rectangle(500, 620, 200, 100, { isStatic: true });
-                boxLvl5B = Bodies.rectangle(700, 520, 200, 100, { isStatic: true });
-                boxLvl5C = Bodies.rectangle(900, 420, 200, 100, { isStatic: true });
-                boxLvl5D = Bodies.rectangle(1100, 320, 200, 100, { isStatic: true });
-                boxLvl5E = Bodies.rectangle(100, 550, 200, 100, { isStatic: true });
-                boxLvl5F = Bodies.rectangle(300, 450, 200, 100, { isStatic: true });
-                boxLvl5G = Bodies.rectangle(500, 350, 200, 100, { isStatic: true });
-                boxLvl5H = Bodies.rectangle(700, 250, 200, 100, { isStatic: true });
-                boxLvl5I = Bodies.rectangle(900, 150, 200, 100, { isStatic: true });
-                boxLvl5J = Bodies.rectangle(1100, 75, 200, 50, { isStatic: true });
-                boxLvl5K = Bodies.rectangle(1350, 25, 300, 50, { isStatic: true });
-
-                World.add(engine.world, [boxLvl5A, boxLvl5B, boxLvl5C, boxLvl5D, boxLvl5E, boxLvl5F, boxLvl5G, boxLvl5H, boxLvl5I, boxLvl5J, boxLvl5K])
+                boxLvl5 = []
+                boxLvl5.push(Bodies.rectangle(500, 620, 200, 100, { isStatic: true }));
+                boxLvl5.push(Bodies.rectangle(700, 520, 200, 100, { isStatic: true }));
+                boxLvl5.push(Bodies.rectangle(900, 420, 200, 100, { isStatic: true }));
+                boxLvl5.push(Bodies.rectangle(1100, 320, 200, 100, { isStatic: true }));
+                boxLvl5.push(Bodies.rectangle(100, 550, 200, 100, { isStatic: true }));
+                boxLvl5.push(Bodies.rectangle(300, 450, 200, 100, { isStatic: true }));
+                boxLvl5.push(Bodies.rectangle(500, 350, 200, 100, { isStatic: true }));
+                boxLvl5.push(Bodies.rectangle(700, 250, 200, 100, { isStatic: true }));
+                boxLvl5.push(Bodies.rectangle(900, 150, 200, 100, { isStatic: true }));
+                boxLvl5.push(Bodies.rectangle(1100, 75, 200, 50, { isStatic: true }));
+                boxLvl5.push(Bodies.rectangle(1350, 25, 300, 50, { isStatic: true }));
             }
         };
     };
@@ -260,34 +238,10 @@ let sketch = function (p: p5) {
             if (level == 2) {
                 p.fill('#715428');
 
-                engine.world.bodies.forEach(body => {
+                boxLvl2.forEach(boxLvl2 => {
                     p.beginShape()
-                    boxLvl2A.vertices.forEach(vertex => {
-                        p.vertex(vertex.x, vertex.y);
-                    })
-                    p.endShape(p.CLOSE);
-                });
-
-                engine.world.bodies.forEach(body => {
-                    p.beginShape()
-                    boxLvl2B.vertices.forEach(vertex => {
-                        p.vertex(vertex.x, vertex.y);
-                    })
-                    p.endShape(p.CLOSE);
-                });
-
-                engine.world.bodies.forEach(body => {
-                    p.beginShape()
-                    boxLvl2C.vertices.forEach(vertex => {
-                        p.vertex(vertex.x, vertex.y);
-                    })
-                    p.endShape(p.CLOSE);
-                });
-
-                engine.world.bodies.forEach(body => {
-                    p.beginShape()
-                    boxLvl2D.vertices.forEach(vertex => {
-                        p.vertex(vertex.x, vertex.y);
+                    boxLvl2.vertices.forEach(v => {
+                        p.vertex(v.x, v.y);
                     })
                     p.endShape(p.CLOSE);
                 });
@@ -314,82 +268,18 @@ let sketch = function (p: p5) {
 
                 p.fill('#715428');
 
-                engine.world.bodies.forEach(body => {
+                boxLvl3.forEach(boxLvl3 => {
                     p.beginShape()
-                    boxLvl3A.vertices.forEach(vertex => {
-                        p.vertex(vertex.x, vertex.y);
+                    boxLvl3.vertices.forEach(v => {
+                        p.vertex(v.x, v.y);
                     })
                     p.endShape(p.CLOSE);
                 });
 
-                engine.world.bodies.forEach(body => {
+                boxLvl3NoCollision.forEach(boxLvl3NoCollision => {
                     p.beginShape()
-                    boxLvl3B.vertices.forEach(vertex => {
-                        p.vertex(vertex.x, vertex.y);
-                    })
-                    p.endShape(p.CLOSE);
-                });
-
-                engine.world.bodies.forEach(body => {
-                    p.beginShape()
-                    boxLvl3C.vertices.forEach(vertex => {
-                        p.vertex(vertex.x, vertex.y);
-                    })
-                    p.endShape(p.CLOSE);
-                });
-
-                engine.world.bodies.forEach(body => {
-                    p.beginShape()
-                    boxLvl3D.vertices.forEach(vertex => {
-                        p.vertex(vertex.x, vertex.y);
-                    })
-                    p.endShape(p.CLOSE);
-                });
-
-                engine.world.bodies.forEach(body => {
-                    p.beginShape()
-                    boxLvl3E.vertices.forEach(vertex => {
-                        p.vertex(vertex.x, vertex.y);
-                    })
-                    p.endShape(p.CLOSE);
-                });
-
-                engine.world.bodies.forEach(body => {
-                    p.beginShape()
-                    boxLvl3F.vertices.forEach(vertex => {
-                        p.vertex(vertex.x, vertex.y);
-                    })
-                    p.endShape(p.CLOSE);
-                });
-
-                engine.world.bodies.forEach(body => {
-                    p.beginShape()
-                    boxLvl3G.vertices.forEach(vertex => {
-                        p.vertex(vertex.x, vertex.y);
-                    })
-                    p.endShape(p.CLOSE);
-                });
-
-                engine.world.bodies.forEach(body => {
-                    p.beginShape()
-                    boxLvl3H.vertices.forEach(vertex => {
-                        p.vertex(vertex.x, vertex.y);
-                    })
-                    p.endShape(p.CLOSE);
-                });
-
-                engine.world.bodies.forEach(body => {
-                    p.beginShape()
-                    boxLvl3I.vertices.forEach(vertex => {
-                        p.vertex(vertex.x, vertex.y);
-                    })
-                    p.endShape(p.CLOSE);
-                });
-
-                engine.world.bodies.forEach(body => {
-                    p.beginShape()
-                    boxLvl3J.vertices.forEach(vertex => {
-                        p.vertex(vertex.x, vertex.y);
+                    boxLvl3NoCollision.vertices.forEach(v => {
+                        p.vertex(v.x, v.y);
                     })
                     p.endShape(p.CLOSE);
                 });
@@ -423,90 +313,10 @@ let sketch = function (p: p5) {
             if (level == 5) {
                 p.fill('#715428');
 
-                engine.world.bodies.forEach(body => {
+                boxLvl5.forEach(boxLvl5 => {
                     p.beginShape()
-                    boxLvl5A.vertices.forEach(vertex => {
-                        p.vertex(vertex.x, vertex.y);
-                    })
-                    p.endShape(p.CLOSE);
-                });
-
-                engine.world.bodies.forEach(body => {
-                    p.beginShape()
-                    boxLvl5B.vertices.forEach(vertex => {
-                        p.vertex(vertex.x, vertex.y);
-                    })
-                    p.endShape(p.CLOSE);
-                });
-
-                engine.world.bodies.forEach(body => {
-                    p.beginShape()
-                    boxLvl5C.vertices.forEach(vertex => {
-                        p.vertex(vertex.x, vertex.y);
-                    })
-                    p.endShape(p.CLOSE);
-                });
-
-                engine.world.bodies.forEach(body => {
-                    p.beginShape()
-                    boxLvl5D.vertices.forEach(vertex => {
-                        p.vertex(vertex.x, vertex.y);
-                    })
-                    p.endShape(p.CLOSE);
-                });
-
-                engine.world.bodies.forEach(body => {
-                    p.beginShape()
-                    boxLvl5E.vertices.forEach(vertex => {
-                        p.vertex(vertex.x, vertex.y);
-                    })
-                    p.endShape(p.CLOSE);
-                });
-
-                engine.world.bodies.forEach(body => {
-                    p.beginShape()
-                    boxLvl5F.vertices.forEach(vertex => {
-                        p.vertex(vertex.x, vertex.y);
-                    })
-                    p.endShape(p.CLOSE);
-                });
-
-                engine.world.bodies.forEach(body => {
-                    p.beginShape()
-                    boxLvl5G.vertices.forEach(vertex => {
-                        p.vertex(vertex.x, vertex.y);
-                    })
-                    p.endShape(p.CLOSE);
-                });
-
-                engine.world.bodies.forEach(body => {
-                    p.beginShape()
-                    boxLvl5H.vertices.forEach(vertex => {
-                        p.vertex(vertex.x, vertex.y);
-                    })
-                    p.endShape(p.CLOSE);
-                });
-
-                engine.world.bodies.forEach(body => {
-                    p.beginShape()
-                    boxLvl5I.vertices.forEach(vertex => {
-                        p.vertex(vertex.x, vertex.y);
-                    })
-                    p.endShape(p.CLOSE);
-                });
-
-                engine.world.bodies.forEach(body => {
-                    p.beginShape()
-                    boxLvl5J.vertices.forEach(vertex => {
-                        p.vertex(vertex.x, vertex.y);
-                    })
-                    p.endShape(p.CLOSE);
-                });
-
-                engine.world.bodies.forEach(body => {
-                    p.beginShape()
-                    boxLvl5K.vertices.forEach(vertex => {
-                        p.vertex(vertex.x, vertex.y);
+                    boxLvl5.vertices.forEach(v => {
+                        p.vertex(v.x, v.y);
                     })
                     p.endShape(p.CLOSE);
                 });
@@ -541,20 +351,11 @@ let sketch = function (p: p5) {
                 p.endShape(p.CLOSE);
             });
 
-            // Draw BorderA
-            engine.world.bodies.forEach(body => {
+            // Draw Borders
+            borders.forEach(borders => {
                 p.beginShape()
-                borderA.vertices.forEach(vertex => {
-                    p.vertex(vertex.x, vertex.y);
-                })
-                p.endShape(p.CLOSE);
-            });
-
-            //Draw BorderB
-            engine.world.bodies.forEach(body => {
-                p.beginShape()
-                borderB.vertices.forEach(vertex => {
-                    p.vertex(vertex.x, vertex.y);
+                borders.vertices.forEach(v => {
+                    p.vertex(v.x, v.y);
                 })
                 p.endShape(p.CLOSE);
             });
@@ -592,22 +393,13 @@ let sketch = function (p: p5) {
                 p.endShape(p.CLOSE);
             });
 
-            // Draw RimCollisionR
+            // Draw RimCollisions
             p.fill('#f74323');
 
-            engine.world.bodies.forEach(body => {
+            rimCollisions.forEach(rimCollisions => {
                 p.beginShape()
-                rimCollisionR.vertices.forEach(vertex => {
-                    p.vertex(vertex.x, vertex.y);
-                })
-                p.endShape(p.CLOSE);
-            });
-
-            // Draw RimCollisionL
-            engine.world.bodies.forEach(body => {
-                p.beginShape()
-                rimCollisionL.vertices.forEach(vertex => {
-                    p.vertex(vertex.x, vertex.y);
+                rimCollisions.vertices.forEach(v => {
+                    p.vertex(v.x, v.y);
                 })
                 p.endShape(p.CLOSE);
             });
@@ -623,22 +415,13 @@ let sketch = function (p: p5) {
 
             p.noStroke();
 
-            // Draw NetA
+            // Draw Net
             p.fill('white');
 
-            engine.world.bodies.forEach(body => {
+            net.forEach(net => {
                 p.beginShape()
-                netA.vertices.forEach(vertex => {
-                    p.vertex(vertex.x, vertex.y);
-                })
-                p.endShape(p.CLOSE);
-            });
-
-            // Draw NetB
-            engine.world.bodies.forEach(body => {
-                p.beginShape()
-                netB.vertices.forEach(vertex => {
-                    p.vertex(vertex.x, vertex.y);
+                net.vertices.forEach(v => {
+                    p.vertex(v.x, v.y);
                 })
                 p.endShape(p.CLOSE);
             });
@@ -1162,20 +945,23 @@ let sketch = function (p: p5) {
             engine = Engine.create();
             ballA = Bodies.circle(200, 675, 25, { restitution: 1 });
             ground = Bodies.rectangle(400, 700, 10000, 60, { isStatic: true });
-            borderA = Bodies.rectangle(-500, 350, 1000, 10000, { isStatic: true });
-            borderB = Bodies.rectangle(2000, 350, 1000, 10000, { isStatic: true });
+            borders = []
+            borders.push(Bodies.rectangle(-500, 350, 1000, 10000, { isStatic: true }));
+            borders.push(Bodies.rectangle(2000, 350, 1000, 10000, { isStatic: true }));
             hoopPole = Bodies.rectangle(1400, 475, 25, 390, { isStatic: true });
             hoopPole.collisionFilter = { 'group': -1 };
             hoopBackboard = Bodies.rectangle(1400, 200, 30, 200, { isStatic: true });
             hoopPaint = Bodies.rectangle(1390, 250, 10, 100, { isStatic: true });
-            rimCollisionR = Bodies.rectangle(1375, 275, 20, 10, { isStatic: true });
-            rimCollisionL = Bodies.rectangle(1290, 275, 10, 10, { isStatic: true });
+            rimCollisions = []
+            rimCollisions.push(Bodies.rectangle(1375, 275, 20, 10, { isStatic: true }));
+            rimCollisions.push(Bodies.rectangle(1290, 275, 10, 10, { isStatic: true }));
             hoopRim = Bodies.rectangle(1335, 275, 100, 10, { isStatic: true });
             hoopRim.collisionFilter = { 'group': -1 };
-            netA = Bodies.rectangle(1381.5, 310, 3, 60, { isStatic: true });
-            netB = Bodies.rectangle(1288.5, 310, 3, 60, { isStatic: true });
+            net = []
+            net.push(Bodies.rectangle(1381.5, 310, 3, 60, { isStatic: true }));
+            net.push(Bodies.rectangle(1288.5, 310, 3, 60, { isStatic: true }));
     
-            World.add(engine.world, [ballA, ground, borderA, borderB, hoopPole, hoopBackboard, hoopPaint, rimCollisionR, rimCollisionL, hoopRim, netA, netB]);
+            World.add(engine.world, [ballA, ground, hoopPole, hoopBackboard, hoopPaint, hoopRim]);
     
             engine.world.gravity.y = 3;
     
@@ -1188,29 +974,26 @@ let sketch = function (p: p5) {
             }
 
             if (level == 2) {
-                boxLvl2A = Bodies.rectangle(1110, 25, 550, 50, { isStatic: true });
-                boxLvl2B = Bodies.rectangle(950, 175, 100, 50, { isStatic: true });
-                boxLvl2C = Bodies.rectangle(1075, 225, 100, 50, { isStatic: true });
-                boxLvl2D = Bodies.rectangle(1200, 275, 100, 50, { isStatic: true });
-
-                World.add(engine.world, [boxLvl2A, boxLvl2B, boxLvl2C, boxLvl2D])
+                boxLvl2 = []
+                boxLvl2.push(Bodies.rectangle(1110, 25, 550, 50, { isStatic: true }));
+                boxLvl2.push(Bodies.rectangle(950, 175, 100, 50, { isStatic: true }));
+                boxLvl2.push(Bodies.rectangle(1075, 225, 100, 50, { isStatic: true }));
+                boxLvl2.push(Bodies.rectangle(1200, 275, 100, 50, { isStatic: true }));
             }
     
             if (level == 3) {
-                boxLvl3A = Bodies.rectangle(750, 660, 50, 20, { isStatic: true });
-                boxLvl3B = Bodies.rectangle(750, 525, 50, 250);
-                boxLvl3C = Bodies.rectangle(200, 300, 100, 100, { isStatic: true });
-                boxLvl3D = Bodies.rectangle(1100, 400, 100, 100, { isStatic: true });
-                boxLvl3E = Bodies.rectangle(900, 250, 100, 100, { isStatic: true });
-                boxLvl3E.collisionFilter = { 'group': -1 };
-                boxLvl3F = Bodies.rectangle(400, 645, 100, 50, { isStatic: true });
-                boxLvl3G = Bodies.rectangle(600, 150, 100, 100, { isStatic: true });
-                boxLvl3H = Bodies.rectangle(1300, 200, 100, 100, { isStatic: true });
-                boxLvl3H.collisionFilter = { 'group': -1 };
-                boxLvl3I = Bodies.rectangle(300, 100, 100, 100, { isStatic: true });
-                boxLvl3J = Bodies.rectangle(1450, 645, 50, 50);
-    
-                World.add(engine.world, [boxLvl3A, boxLvl3B, boxLvl3C, boxLvl3D, boxLvl3E, boxLvl3F, boxLvl3G, boxLvl3H, boxLvl3I, boxLvl3J]);
+                boxLvl3 = []
+                boxLvl3.push(Bodies.rectangle(750, 660, 50, 20, { isStatic: true }));
+                boxLvl3.push(Bodies.rectangle(750, 525, 50, 250));
+                boxLvl3.push(Bodies.rectangle(200, 300, 100, 100, { isStatic: true }));
+                boxLvl3.push(Bodies.rectangle(1100, 400, 100, 100, { isStatic: true }));
+                boxLvl3.push(Bodies.rectangle(400, 645, 100, 50, { isStatic: true }));
+                boxLvl3.push(Bodies.rectangle(600, 150, 100, 100, { isStatic: true }));
+                boxLvl3.push(Bodies.rectangle(300, 100, 100, 100, { isStatic: true }));
+                boxLvl3.push(Bodies.rectangle(1450, 645, 50, 50));
+                boxLvl3NoCollision = []
+                boxLvl3NoCollision.push(Bodies.rectangle(900, 250, 100, 100, { isStatic: true }));
+                boxLvl3NoCollision.push(Bodies.rectangle(1300, 200, 100, 100, { isStatic: true }));
             }
     
             if (level == 4) {
@@ -1220,19 +1003,18 @@ let sketch = function (p: p5) {
             }
 
             if (level == 5) {
-                boxLvl5A = Bodies.rectangle(500, 620, 200, 100, { isStatic: true });
-                boxLvl5B = Bodies.rectangle(700, 520, 200, 100, { isStatic: true });
-                boxLvl5C = Bodies.rectangle(900, 420, 200, 100, { isStatic: true });
-                boxLvl5D = Bodies.rectangle(1100, 320, 200, 100, { isStatic: true });
-                boxLvl5E = Bodies.rectangle(100, 550, 200, 100, { isStatic: true });
-                boxLvl5F = Bodies.rectangle(300, 450, 200, 100, { isStatic: true });
-                boxLvl5G = Bodies.rectangle(500, 350, 200, 100, { isStatic: true });
-                boxLvl5H = Bodies.rectangle(700, 250, 200, 100, { isStatic: true });
-                boxLvl5I = Bodies.rectangle(900, 150, 200, 100, { isStatic: true });
-                boxLvl5J = Bodies.rectangle(1100, 75, 200, 50, { isStatic: true });
-                boxLvl5K = Bodies.rectangle(1350, 25, 300, 50, { isStatic: true });
-
-                World.add(engine.world, [boxLvl5A, boxLvl5B, boxLvl5C, boxLvl5D, boxLvl5E, boxLvl5F, boxLvl5G, boxLvl5H, boxLvl5I, boxLvl5J, boxLvl5K])
+                boxLvl5 = []
+                boxLvl5.push(Bodies.rectangle(500, 620, 200, 100, { isStatic: true }));
+                boxLvl5.push(Bodies.rectangle(700, 520, 200, 100, { isStatic: true }));
+                boxLvl5.push(Bodies.rectangle(900, 420, 200, 100, { isStatic: true }));
+                boxLvl5.push(Bodies.rectangle(1100, 320, 200, 100, { isStatic: true }));
+                boxLvl5.push(Bodies.rectangle(100, 550, 200, 100, { isStatic: true }));
+                boxLvl5.push(Bodies.rectangle(300, 450, 200, 100, { isStatic: true }));
+                boxLvl5.push(Bodies.rectangle(500, 350, 200, 100, { isStatic: true }));
+                boxLvl5.push(Bodies.rectangle(700, 250, 200, 100, { isStatic: true }));
+                boxLvl5.push(Bodies.rectangle(900, 150, 200, 100, { isStatic: true }));
+                boxLvl5.push(Bodies.rectangle(1100, 75, 200, 50, { isStatic: true }));
+                boxLvl5.push(Bodies.rectangle(1350, 25, 300, 50, { isStatic: true }));
             }
         }
     };
