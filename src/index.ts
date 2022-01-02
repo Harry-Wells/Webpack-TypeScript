@@ -53,7 +53,8 @@ let sketch = function (p: p5) {
     var boxLvl1: Matter.Body;
     var boxLvl2: Matter.Body[];
     var boxLvl3: Matter.Body[];
-    var boxLvl3NoCollision: Matter.Body[];
+    var boxLvl3NoCollisionA: Matter.Body;
+    var boxLvl3NoCollisionB: Matter.Body;
     var boxLvl4: Matter.Body;
     var boxLvl5: Matter.Body[];
 
@@ -135,9 +136,10 @@ let sketch = function (p: p5) {
                 boxLvl3.push(Bodies.rectangle(600, 150, 100, 100, { isStatic: true }));
                 boxLvl3.push(Bodies.rectangle(300, 100, 100, 100, { isStatic: true }));
                 boxLvl3.push(Bodies.rectangle(1450, 645, 50, 50));
-                boxLvl3NoCollision = []
-                boxLvl3NoCollision.push(Bodies.rectangle(900, 250, 100, 100, { isStatic: true }));
-                boxLvl3NoCollision.push(Bodies.rectangle(1300, 200, 100, 100, { isStatic: true }));
+                boxLvl3NoCollisionA = Bodies.rectangle(900, 250, 100, 100, { isStatic: true });
+                boxLvl3NoCollisionA.collisionFilter = { 'group': -1 };
+                boxLvl3NoCollisionB = Bodies.rectangle(1300, 200, 100, 100, { isStatic: true });
+                boxLvl3NoCollisionB.collisionFilter = { 'group': -1 };
             }
 
             if (level == 4) {
@@ -276,10 +278,18 @@ let sketch = function (p: p5) {
                     p.endShape(p.CLOSE);
                 });
 
-                boxLvl3NoCollision.forEach(boxLvl3NoCollision => {
+                engine.world.bodies.forEach(body => {
                     p.beginShape()
-                    boxLvl3NoCollision.vertices.forEach(v => {
-                        p.vertex(v.x, v.y);
+                    boxLvl3NoCollisionA.vertices.forEach(vertex => {
+                        p.vertex(vertex.x, vertex.y);
+                    })
+                    p.endShape(p.CLOSE);
+                });
+
+                engine.world.bodies.forEach(body => {
+                    p.beginShape()
+                    boxLvl3NoCollisionB.vertices.forEach(vertex => {
+                        p.vertex(vertex.x, vertex.y);
                     })
                     p.endShape(p.CLOSE);
                 });
@@ -991,11 +1001,12 @@ let sketch = function (p: p5) {
                 boxLvl3.push(Bodies.rectangle(600, 150, 100, 100, { isStatic: true }));
                 boxLvl3.push(Bodies.rectangle(300, 100, 100, 100, { isStatic: true }));
                 boxLvl3.push(Bodies.rectangle(1450, 645, 50, 50));
-                boxLvl3NoCollision = []
-                boxLvl3NoCollision.push(Bodies.rectangle(900, 250, 100, 100, { isStatic: true }));
-                boxLvl3NoCollision.push(Bodies.rectangle(1300, 200, 100, 100, { isStatic: true }));
+                boxLvl3NoCollisionA = Bodies.rectangle(900, 250, 100, 100, { isStatic: true });
+                boxLvl3NoCollisionA.collisionFilter = { 'group': -1 };
+                boxLvl3NoCollisionB = Bodies.rectangle(1300, 200, 100, 100, { isStatic: true });
+                boxLvl3NoCollisionB.collisionFilter = { 'group': -1 };
             }
-    
+
             if (level == 4) {
                 boxLvl4 = Bodies.rectangle(750, 350, 300, 700, { isStatic: true });
     
